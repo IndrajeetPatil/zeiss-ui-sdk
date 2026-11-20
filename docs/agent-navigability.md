@@ -40,6 +40,30 @@ The original is not bad everywhere. Its shop filter, quantity field, and add-to-
 > [!IMPORTANT]
 > The rebuild is a mock with less content and no backend: the shop has six cameras, the cart lives in the browser, and checkout isn't implemented. It also puts the whole journey on one domain, while the original crosses to a shop run by the ZEISS licensee Valyra. Some of the rebuild's advantage comes from that smaller, single-site surface rather than from ui-sdk itself.
 
+## Video: the buyer journey side by side
+
+[![Two agents doing the buyer journey side by side, with live counters for actions, workarounds, failed actions, tabs, and page text read](video/agent-journey-still.png)](video/agent-journey-side-by-side.mp4)
+
+[Watch the clip](video/agent-journey-side-by-side.mp4) (about 2 minutes, 1920×1080). Two more fresh agents did the buyer journey, one per site, in a recorded browser. A red box marks each control just before the agent uses it. Thinking pauses are cut, so the length of each side tracks how many actions it took.
+
+| Recorded run | zeiss.com | Rebuild |
+| --- | --- | --- |
+| Correct cart (€299.98) | ✅ | ✅ |
+| Actions (clicks, typing, keys, and waits) | 36 | 14 |
+| Workarounds (flagged by the agent) | 14 | 1 |
+| Failed actions | 7 | 0 |
+| Tabs / sites | 3 / 2 | 1 / 1 |
+| Page text read | ~154k tokens | ~35k tokens |
+| Agent's own score | 5 / 10 | 8 / 10 |
+
+- **Where the zeiss.com run lost time:**
+  - The **Products** mega-menu on the Nature Observation site: four clicks on "Trail Cameras" either timed out or did nothing, so the agent finally typed the page's URL.
+  - The shop's **filter panel** stayed open over the first product card. Clicks on it failed until the agent scrolled up and closed the panel with its toggle, because Escape didn't close it.
+  - The **cart panel** never appeared in the accessibility tree, so the agent needed a screenshot to find "Display shopping cart".
+- **The rebuild run's one workaround** was the shop's second cookie banner, which the rebuild copies from the original.
+
+These counts come from the recorder's log, not from the agents' summaries, so they differ from the written evaluation below. This zeiss.com agent struggled more with the mega-menu than the earlier one, and it also counted waits as actions. The zeiss.com run also had a setup problem on our side: it started without the browser's port number, so it had to find it. That cost time and possibly two or three repeat page reads (about 19k tokens), but no actions. It's also why the clip shows no clock. The `agent-navigability-comparison` skill describes how to record and render the clip again.
+
 ## Buyer journey
 
 The task, given verbatim to both agents:
