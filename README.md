@@ -13,42 +13,21 @@ The buyer journey follows the live site from the homepage to a cart: Nature Obse
 >
 > - We believe this limited use for research, benchmarking, and commentary constitutes fair use. If you represent ZEISS and would like anything changed or removed, please open an issue, and we will act on it promptly.
 
-![The rebuilt homepage](docs/images/clone-top.png)
+## Agent navigability comparison
 
-## What it shows
+[![Two agents doing the buyer journey side by side, with live counters for actions, workarounds, failed actions, tabs, and page text read](docs/video/agent-journey-still.png)](docs/video/agent-journey-side-by-side.mp4)
 
-Each section uses a different ui-sdk behaviour:
+[Watch the side-by-side video](docs/video/agent-journey-side-by-side.mp4) (~2 minutes, 1920×1080).
 
-| Section | Component |
-| --- | --- |
-| Cookie banner | Dialog, Collapsible, Switch |
-| Header | Navigation Menu, Command search in a Dialog (⌘K) |
-| Hero | Carousel with autoplay, indicators, and a play toggle |
-| Divisions | Tabs |
-| Focus topics | Toggle Group filter |
-| Newsroom | Pagination |
-| Events | Accordion, Hover Card |
-| Contact | Drawer with Field, Input, Select, Textarea, Checkbox, and Toast |
-| Footer | Select, Tooltip |
-| Trail-camera comparison | Carousel |
-| Shop listing | Popover filter with Checkbox Group and range Slider, Select sort |
-| Product page | Carousel gallery, Number Input quantity, Accordion |
-| Cart | Drawer, Number Input, Input promo code |
+Two agents completed the trail-camera buyer journey side by side—zeiss.com on the left and the ui-sdk rebuild on the right:
 
-The page registers ui-sdk's `snapshot`, `act`, and `query` tools through WebMCP, so a browser agent can operate it directly.
+| Metric | zeiss.com | Rebuild |
+| --- | --- | --- |
+| Correct cart (€299.98) | ✅ | ✅ |
+| Actions (clicks, typing, keys, and waits) | 36 | 14 |
+| Workarounds (flagged by the agent) | 14 | 1 |
+| Failed actions | 7 | 0 |
+| Tabs / sites | 3 / 2 | 1 / 1 |
+| Page text read | ~154k tokens | ~35k tokens |
 
-Photography is loaded at runtime from zeiss.com; no ZEISS assets are stored in this repository.
-
-## Agent navigability
-
-[docs/agent-navigability.md](docs/agent-navigability.md) compares how well an AI agent can navigate this rebuild and the live zeiss.com, on the buyer journey and on eight homepage tasks. It includes a [side-by-side video](docs/video/agent-journey-side-by-side.mp4) of two agents doing the buyer journey.
-
-## Development
-
-Requires [Vite+](https://viteplus.dev) and pnpm.
-
-```sh
-pnpm install
-pnpm dev
-pnpm build
-```
+Both agents were given the exact same instructions and task. You can view the [prompt used for the video](.agents/skills/agent-navigability-comparison/references/video-agent-prompt.md) and read the full comparison in the [agent navigability report](docs/agent-navigability.md).
