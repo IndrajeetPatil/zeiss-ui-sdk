@@ -107,4 +107,12 @@ const newsImages: Record<string, string> = {
 const portfolioImage = `${DAM}/cco/reference-master/home/images/portfolio_zeiss_2025.jpg`;
 const eventsImage = `${DAM}/cco/reference-master/about-us/present/events/images/zeiss-events.jpg`;
 
-export { cardImages, eventsImage, heroImages, newsImages, portfolioImage, promoImages, storyImages };
+export {
+  cardImages,
+  eventsImage,
+  heroImages,
+  newsImages,
+  portfolioImage,
+  promoImages,
+  storyImages,
+};

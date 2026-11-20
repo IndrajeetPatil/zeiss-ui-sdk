@@ -1,7 +1,16 @@
 import type { IconName } from "./content.ts";
 
 const paths: Record<
-  IconName | "search" | "arrow" | "external" | "people" | "globe" | "handshake" | "up",
+  | IconName
+  | "search"
+  | "arrow"
+  | "external"
+  | "people"
+  | "globe"
+  | "handshake"
+  | "up"
+  | "cart"
+  | "close",
   string
 > = {
   eye: "M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z",
@@ -24,6 +33,8 @@ const paths: Record<
     "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z M2 12h20 M12 2c3 3.5 3 16.5 0 20 M12 2c-3 3.5-3 16.5 0 20",
   handshake: "M2 11l5-5 5 3 5-3 5 5 M7 6l-3 9 5 5 3-2 3 2 5-5-3-9 M9 12l3 3",
   up: "M12 20V5 M6 11l6-6 6 6",
+  cart: "M2 3h3l2.5 12h11L21 7H6.2 M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z M18 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z",
+  close: "M6 6l12 12 M18 6 6 18",
 };
 
 function Icon({ name, size = 24 }: { name: keyof typeof paths; size?: number }) {

@@ -13,6 +13,31 @@ Give both evaluators these tasks verbatim, in this order. Each task must stay do
 7. In the footer, change the website/country selector to a German site (don't follow through to a real navigation if it would leave the page; just report whether the control is operable and what it is).
 8. Filter the homepage stories by the "Sustainability" focus topic and list the stories shown.
 
+## Buyer journey
+
+The main comparison: a customer buying a ZEISS trail camera. Give this task verbatim:
+
+> Starting from the ZEISS Group homepage, find ZEISS's trail cameras for nature observation and go to the official ZEISS online shop that sells them. In the shop, filter the trail cameras to those with a **100° wide-angle field of view**, and pick the **cheapest** one. Open its product page, set the quantity to **2**, and add it to the cart. Open the full shopping cart page, then report the product name, product number, quantity, unit price, shipping cost, and grand total. Do not click "Go to checkout" and do not enter any personal or payment data.
+
+Ask the evaluator to break the journey into steps (homepage → … → cart) and record actions and obstacles per step, not just for the whole task.
+
+Expected end state, for checking the evaluator's result:
+
+| Field | Value |
+| --- | --- |
+| Product | ZEISS Secacam 3 Wide-Angle |
+| Product number | SC-000-130-100 |
+| Quantity | 2 |
+| Unit price | €149.99 (incl. 19% VAT) |
+| Shipping | €0.00 |
+| Grand total | €299.98 (net €252.08 + VAT €47.90) |
+
+The only other 100° camera is the ZEISS Secacam 5 Wide-Angle at €199.99, so picking it fails the "cheapest" criterion.
+
+On the original, the path runs through `www.zeiss.com` (homepage, Nature Observation, Products, Trail Cameras) and then `shop.zeiss.com`. The shop is run by the licensee Valyra, opens in a new tab, and shows its own cookie banner. Live prices can change with promotions; record what the evaluator saw.
+
+The rebuild mirrors the same steps at `/`, `/nature-observation`, `/nature-observation/products`, `/nature-observation/products/trail-cameras`, `/shop/cameras`, `/shop/cameras/secacam-3-wide-angle`, and `/checkout/cart`.
+
 ## What to record per task
 
 - Success: yes, partial, or no.
