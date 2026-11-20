@@ -54,6 +54,33 @@ await page.addInitScript(() => {
 
 `registerTool` **must return a Promise**: ui-sdk calls `.catch()` on the result. A synchronous stub registers only the first tool. Evaluators call a tool with `page.evaluate(([n, a]) => window.__tools[n].execute(a), [name, input])`.
 
+## Recording the side-by-side video
+
+`docs/video/` holds a clip of two agents doing the buyer journey, one per site, side by side with live metrics. To re-record it:
+
+1. **Copy the scripts** from [scripts/](scripts/) into the Playwright scratch folder, for example `/tmp/zeiss-check/video/`, so they resolve `playwright` from there.
+
+2. **Start one recorded browser per site** in the background:
+
+   ```sh
+   node agentcam.mjs https://www.zeiss.com/corporate/en/home.html run-original 7801
+   node agentcam.mjs http://localhost:5199/ run-rebuild 7802
+   ```
+
+   `agentcam.mjs` opens Chromium at 1280×800 with video recording on and takes JSON commands over HTTP: `snapshot` (the AI-mode accessibility tree with refs), `click`, `fill`, `check`, `press`, `tab`, `done`, and others. Before each action it outlines the target in red, so the viewer can see what the agent is about to use. Every action goes to `log.jsonl` with timestamps, the agent's caption, and a workaround flag. New tabs are recorded as their own videos and listed in `meta.json` after `done`.
+
+3. **Launch two fresh subagents in parallel** with [references/video-agent-prompt.md](references/video-agent-prompt.md), changing only the port. The same isolation rules apply as for the written evaluation. Check the port is filled in before launching.
+
+4. **Render** once both runs have called `done`:
+
+   ```sh
+   node render.mjs run-original run-rebuild out
+   ```
+
+   This cuts each run down to its actions, so thinking pauses disappear, and overlays a panel per action: the caption, a step tracker (Home → Cart), and counters for actions, workarounds, failed actions, tabs and sites, and page text read (snapshot characters ÷ 4, as tokens). The shorter side holds its last frame. A title card and a results card frame the clip. Output: `agent-journey-side-by-side.mp4`, `agent-journey-result.png`, and `agent-journey-still.png`. It needs `ffmpeg` with `libx264`; `drawtext` isn't needed, since overlays are rendered as HTML.
+
+5. **Copy the outputs** to `docs/video/` and update the video section of the report with the counters from the results card. The metrics come from the logs, so they can differ from the written evaluation's numbers; report each as measured.
+
 ## Writing the report
 
 `docs/agent-navigability.md` describes the current state; it's not a changelog. Rewrite sections in place, and don't add dated "re-run" sections or keep superseded numbers.
@@ -83,4 +110,5 @@ When a task needs pages the rebuild lacks:
 - **The cookie banner** opens on every fresh load of both sites. Every task run starts by dismissing it.
 - **The hero carousel autoplays** on the rebuild, so a screenshot can catch it mid-slide. Pause it, or wait before capturing.
 - **The live site changes.** News, events, and stories rotate, so record what the evaluator actually saw, not what the previous report said.
+- **Video runs vary.** Each recording is a new agent and takes a slightly different route, so its counts won't match earlier runs exactly.
 - **A local hook blocks `git commit` on `main`,** and it also trips on any shell command containing the word "commit", such as `gh api` fields like `squash_merge_commit_title`. Work on a branch, and put such API calls in a script file.

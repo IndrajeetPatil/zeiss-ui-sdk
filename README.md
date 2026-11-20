@@ -32,7 +32,7 @@ Photography is loaded at runtime from zeiss.com; no ZEISS assets are stored in t
 
 ## Agent navigability
 
-[docs/agent-navigability.md](docs/agent-navigability.md) compares how well an AI agent can navigate this rebuild and the live zeiss.com, on the buyer journey and on eight homepage tasks.
+[docs/agent-navigability.md](docs/agent-navigability.md) compares how well an AI agent can navigate this rebuild and the live zeiss.com, on the buyer journey and on eight homepage tasks. It includes a [side-by-side video](docs/video/agent-journey-side-by-side.mp4) of two agents doing the buyer journey.
 
 ## Development
 
