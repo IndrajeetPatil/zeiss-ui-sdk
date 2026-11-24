@@ -101,6 +101,31 @@ The original is not bad everywhere. Its shop filter, quantity field, and add-to-
   - The **cart panel** never appeared in the accessibility tree, so the agent needed a screenshot to find "Display shopping cart".
 - **The rebuild run's one workaround** was the shop's second cookie banner, which the rebuild copies from the original.
 
+### Every action in the recorded run
+
+The table lists every action each agent took, grouped by stage of the journey, so you can see where the two runs part ways. Each action is shown with the agent's own caption for it, as overlaid on the video. Reading the page (snapshots) and screenshots aren't actions, so they're left out.
+
+❌ failed · ⚠️ workaround (flagged by the agent) · ⏳ wait
+
+| Stage | zeiss.com | Rebuild |
+| --- | --- | --- |
+| Homepage → Nature Observation | **5 actions** (1 failed, 1 workaround)<br>1. ❌ Open the Hunting / Nature Observation tab<br>2. Accept the cookie banner<br>3. Open the Hunting & Nature Observation segment<br>4. Go to ZEISS products for nature observation (opens a new tab)<br>5. ⚠️ Switch to the newly opened Nature Observation tab | **3 actions**<br>1. Accept cookies<br>2. Open Hunting and Nature Observation division<br>3. Open nature observation products |
+| Nature Observation → Trail Cameras | **13 actions** (3 failed, 7 workarounds, 3 waits)<br>6. Open the Products page<br>7. Open Trail Cameras from the Products menu<br>8. ⏳ Let the trail cameras page load<br>9. ⚠️ Reopen the Products menu<br>10. ❌⚠️ Open Trail Cameras from the menu<br>11. ⏳ Wait for Trail Cameras page to load<br>12. ⚠️ Hover Products to open its menu<br>13. ❌⚠️ Open Trail Cameras from the menu<br>14. ⚠️ Open the Products menu<br>15. ⚠️ Expand Trail Cameras in the Products menu<br>16. ❌ Open the Trail Cameras overview page<br>17. ⏳ Wait for the trail cameras page<br>18. ⚠️ Open Trail Cameras page via its menu link URL | **2 actions**<br>4. Open the Products menu<br>5. Open ZEISS Trail Cameras |
+| Trail Cameras → shop | **3 actions** (1 workaround, 1 wait)<br>19. Go to the ZEISS Online Shop for trail cameras (opens a second new tab)<br>20. ⏳ Wait for the shop to load<br>21. ⚠️ Switch to the ZEISS Online Shop tab | **2 actions** (1 workaround)<br>6. Go to the ZEISS Online Shop<br>7. ⚠️ Dismiss the shop cookie banner |
+| Filter and pick the camera | **10 actions** (3 failed, 5 workarounds, 1 wait)<br>22. Open the product filter<br>23. Filter to 100° wide-angle field of view<br>24. ⏳ Wait for filtered results<br>25. ❌ Open the Secacam 3 Wide-Angle product page<br>26. ❌⚠️ Close the filter panel covering the products<br>27. ❌⚠️ Open the Secacam 3 Wide-Angle product page<br>28. ⚠️ Close the filter dropdown covering products<br>29. ⚠️ Scroll up so the filter toggle is clear of the header<br>30. ⚠️ Collapse the filter dropdown<br>31. Open the Secacam 3 Wide-Angle product page | **4 actions**<br>8. Open the product filter<br>9. Filter to 100° wide-angle cameras<br>10. Apply filter and close the panel<br>11. Open the cheapest 100° camera |
+| Quantity and add to cart | **3 actions** (1 wait)<br>32. Set quantity to 2<br>33. Add 2 cameras to the shopping cart<br>34. ⏳ Wait for the cart panel to open | **2 actions**<br>12. Increase quantity to 2<br>13. Add 2 cameras to the shopping cart |
+| Cart page | **2 actions** (1 wait)<br>35. Open the full shopping cart page<br>36. ⏳ Wait for the cart page to load | **1 action**<br>14. Open the full shopping cart page |
+| **Total** | **36 actions** (7 failed, 14 workarounds, 7 waits) | **14 actions** (1 workaround) |
+
+Where the runs part ways:
+
+- **Nature Observation → Trail Cameras** accounts for 11 of the 22 extra actions on zeiss.com (13 against 2). Its Products mega-menu took four attempts to open "Trail Cameras", until the agent typed the page's URL instead.
+- **Filter and pick** accounts for 6 more (10 against 4). The open filter panel covered the product, so three clicks failed before the agent scrolled up and closed it.
+- **The other 5** are spread out: a failed first click on the homepage, a switch to each of the two new tabs the live site opens, and waits for the cart panel and the cart page.
+- Once on the product page, the two runs are nearly the same: set the quantity, add to cart, open the cart. zeiss.com needed only two extra waits there.
+
+The repository doesn't keep the recorder's logs, so the captions and markers here were read from the video. They match the counts on its results card.
+
 **Why these counts differ from the [Verdict](#verdict).** The original needed 36 actions here but 18 in the written evaluation, mainly because:
 
 - These counts come from the recorder's log, not from the agents' own summaries.
