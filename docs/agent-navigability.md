@@ -2,16 +2,31 @@
 
 This document compares how easily an AI agent can navigate and operate two versions of the ZEISS website:
 
-- **Original:** the live site, starting at <https://www.zeiss.com/corporate/en/home.html>. The buyer journey continues to the ZEISS Hunting & Nature shop at `shop.zeiss.com`.
+- **Original:** the live site (zeiss.com), starting at <https://www.zeiss.com/corporate/en/home.html>. The buyer journey continues to the ZEISS Hunting & Nature shop at `shop.zeiss.com`.
 - **Rebuild:** this project, built with [ui-sdk](https://github.com/vercel-labs/ui) (`@ui-sdk/react`) and served locally at `http://localhost:5199/`.
 
-The rebuild covers the same pages for both comparisons in this document:
+The comparison has two parts, and the rebuild recreates the pages that both of them need:
 
 - a **buyer journey**, in which a customer goes from the ZEISS Group homepage to a cart with two trail cameras in it;
 - **eight homepage tasks**, such as rejecting cookies, searching, and paging the news.
 
-> [!NOTE]
-> Each site was tested by a separate agent that knew nothing about how either site was built. Both agents got identical instructions and tasks, used the same tools (Playwright with Chromium at 1440×900), and saw only one site each. The method is recorded in the `agent-navigability-comparison` skill in `.agents/skills/`.
+## How the comparison was run
+
+The comparison was run twice, each time with fresh agents:
+
+1. **The written evaluation** covers both parts. Two agents, one per site, drove a browser with Playwright scripts (Chromium at 1440×900) and wrote a report on each task. The [Verdict](#verdict), [Buyer journey](#buyer-journey), and [Homepage tasks](#homepage-tasks) sections come from this run.
+2. **The recorded run** covers only the buyer journey. Two more agents, one per site, used a recorded browser that logged every action. The [video](#video-the-buyer-journey-side-by-side) and its counts come from this run.
+
+In both runs, each agent saw only one site and knew nothing about how either site was built. Both agents in a run got identical instructions and tasks. The prompts, tasks, and scripts are in the `agent-navigability-comparison` skill in `.agents/skills/`.
+
+### Terms used in this report
+
+- **Accessibility tree:** the browser's structured view of a page: each control's role (`button`, `link`, `checkbox`), its accessible name, and its state (expanded, checked, pressed). A browsing agent mostly "sees" a page through this tree, so a control is quoted here as role and name, for example `button "Reject All"`.
+- **Snapshot:** a text dump of the accessibility tree that the agent reads. Its size is a rough measure of how much the agent has to read on each page.
+- **Action:** one thing the agent does to the page, such as a click, a fill, a key press, or a tool call.
+- **Workaround:** an action that isn't the obvious next step, such as retrying, choosing a button by its position because several share a name, typing a URL, or using CSS selectors or screen coordinates instead of the accessibility tree.
+- **WebMCP:** a proposed browser API that lets a page register tools an agent can call directly. The rebuild registers three ui-sdk tools: `snapshot` (describe the page), `act` (operate controls), and `query` (find components). The original registers none.
+- **Score:** each agent's own rating out of 10 for how easy its site was to navigate. It's a judgement, not a computed metric.
 
 ## Verdict
 
@@ -26,7 +41,10 @@ The rebuild covers the same pages for both comparisons in this document:
 | Homepage tasks fully done | 4 of 8 | 8 of 8 |
 | WebMCP tools exposed | None | `snapshot`, `act`, `query` |
 
+These numbers come from the written evaluation. The recorded run in the [video](#video-the-buyer-journey-side-by-side) counted more actions on the original (36 rather than 18), for reasons given in that section.
+
 Both agents bought the right camera. The difference is in how much an agent has to work around the page. On the original, the agent had to:
+
 - switch tabs twice, onto a second domain;
 - reject cookies on two different banners;
 - cope with a menu link that behaves differently depending on how fast it's clicked;
@@ -44,7 +62,7 @@ The original is not bad everywhere. Its shop filter, quantity field, and add-to-
 
 [![Two agents doing the buyer journey side by side, with live counters for actions, workarounds, failed actions, tabs, and page text read](video/agent-journey-still.png)](video/agent-journey-side-by-side.mp4)
 
-[Watch the clip](video/agent-journey-side-by-side.mp4) (about 2 minutes, 1920×1080). Two more fresh agents did the buyer journey, one per site, in a recorded browser. A red box marks each control just before the agent uses it. Thinking pauses are cut, so the length of each side tracks how many actions it took.
+[Watch the clip](video/agent-journey-side-by-side.mp4) (about 2 minutes, 1920×1080). This is the recorded run: two fresh agents, separate from those in the written evaluation, did the buyer journey, one per site. A red box marks each control just before the agent uses it. Thinking pauses are cut, so the length of each side tracks how many actions it took. "Page text read" estimates the snapshot text the agent read, as characters ÷ 4.
 
 | Recorded run | zeiss.com | Rebuild |
 | --- | --- | --- |
@@ -62,11 +80,19 @@ The original is not bad everywhere. Its shop filter, quantity field, and add-to-
   - The **cart panel** never appeared in the accessibility tree, so the agent needed a screenshot to find "Display shopping cart".
 - **The rebuild run's one workaround** was the shop's second cookie banner, which the rebuild copies from the original.
 
-These counts come from the recorder's log, not from the agents' summaries, so they differ from the written evaluation below. This zeiss.com agent struggled more with the mega-menu than the earlier one, and it also counted waits as actions. The zeiss.com run also had a setup problem on our side: it started without the browser's port number, so it had to find it. That cost time and possibly two or three repeat page reads (about 19k tokens), but no actions. It's also why the clip shows no clock. The `agent-navigability-comparison` skill describes how to record and render the clip again.
+**Why these counts differ from the [Verdict](#verdict).** The original needed 36 actions here but 18 in the written evaluation, mainly because:
+
+- These counts come from the recorder's log, not from the agents' own summaries.
+- This zeiss.com agent struggled more with the mega-menu than the one in the written evaluation.
+- The recorder counts waits as actions.
+
+The zeiss.com run also had a setup problem on our side: it started without the browser's port number, so it had to find it. That cost time and possibly two or three repeat page reads (about 19k tokens), but no actions. It's also why the clip shows no clock.
+
+The `agent-navigability-comparison` skill describes how to record and render the clip again.
 
 ## Buyer journey
 
-The task, given verbatim to both agents:
+This section and the next come from the written evaluation. The task, given verbatim to both agents:
 
 > Starting from the ZEISS Group homepage, find ZEISS's trail cameras for nature observation and go to the official ZEISS online shop that sells them. In the shop, filter the trail cameras to those with a **100° wide-angle field of view**, and pick the **cheapest** one. Open its product page, set the quantity to **2**, and add it to the cart. Open the full shopping cart page, then report the product name, product number, quantity, unit price, shipping cost, and grand total. Do not click "Go to checkout" and do not enter any personal or payment data.
 
@@ -107,7 +133,7 @@ flowchart LR
 | Step | Original | Rebuild |
 | --- | --- | --- |
 | Homepage | 3 actions. Reject cookies, open the `tab "Hunting Nature Observation"`, and follow `link "ZEISS products for nature observation"`, which opens a **new tab** without saying so | 3 actions. Reject cookies, open the `tab "Hunting and Nature Observation"`, and follow `link "Products for nature observation"` in the same tab |
-| Nature Observation → Trail Cameras | 4 actions, including a tab switch. `link "Products"` navigates if clicked early but opens a megamenu if clicked after scripts load. In the menu, `link "Trail Cameras"` opens a submenu with no `aria-expanded`, and "Overview" appears twice | 2 actions. `link "ZEISS Nature Observation Products"`, then `link "ZEISS Trail Cameras"` in its named region |
+| Nature Observation → Trail Cameras | 4 actions, including a tab switch. `link "Products"` navigates if clicked early but opens a mega-menu if clicked after scripts load. In the menu, `link "Trail Cameras"` opens a submenu with no `aria-expanded`, and "Overview" appears twice | 2 actions. `link "ZEISS Nature Observation Products"`, then `link "ZEISS Trail Cameras"` in its named region |
 | To the shop | 1 action, plus a tab switch. `link "ZEISS Online Shop"` opens a **second new tab** on `shop.zeiss.com` | 1 action. `link "ZEISS Online Shop"`, same tab |
 | Shop cookie banner | 1 action. A second, different banner: `dialog "Privacy Settings"` › `button "Deny"` | 1 action. The same banner design again: `button "Reject All"` |
 | Filter | 4 actions. `button "Choose filter"` sometimes ignores the first click while the page loads. `checkbox "100° angle"` works, but nothing announces the new results, and the panel stays open over them. Escape doesn't close it, so the agent clicked the toggle again | 3 actions. `button "Choose filter" [expanded]`, `checkbox "100° angle" [checked]`, then `button "Show 2 products"`. A `status` announces "2 products" |
@@ -144,7 +170,7 @@ Both homepages are mostly noise for this task (about 95% of each is unrelated ne
 
 ### Through the WebMCP tools (rebuild only)
 
-No page on the original registers tools. On the rebuild, the agent repeated the journey through `snapshot`, `act`, and `query`:
+No page on the original registers tools. On the rebuild, the agent repeated the journey through `snapshot`, `act`, and `query`. A **UI fallback** is a step where the tools couldn't do the job, so the agent operated the page directly instead:
 
 | Step | Tool calls | UI fallbacks | Notes |
 | --- | --- | --- | --- |
@@ -155,7 +181,7 @@ No page on the original registers tools. On the rebuild, the agent repeated the 
 | Quantity and add to cart | 1 | 1 | One `act` set quantity 2 and added to the cart; "Display shopping cart" needed a click |
 | Cart | 3 | 1 | `query` can't find "Grand total"; row text is cut at 80 characters, so prices are lost |
 
-That's 13 tool calls (one failed) and 4 UI fallbacks, about 6/10 on its own. The tools are efficient for changing state, and they flag "Go to checkout" as needing a person. But they can't follow ordinary links or read prices and totals, so they work alongside the accessibility tree; they can't stand in for it.
+That's 13 tool calls (one failed) and 4 UI fallbacks. The agent rated the tools about 6/10 on their own. The tools are efficient for changing state, and they flag "Go to checkout" as needing a person. But they can't follow ordinary links or read prices and totals, so they work alongside the accessibility tree; they can't stand in for it.
 
 ## Homepage tasks
 
@@ -197,5 +223,6 @@ Through the tools, the rebuild agent changed state in fewer calls (the whole con
 
 ## Reproducing
 
-- Follow the `agent-navigability-comparison` skill in `.agents/skills/`: it holds the evaluator prompt, the tasks, the WebMCP polyfill, and the expected cart.
-- Start the rebuild with `pnpm dev --port 5199`.
+- Install dependencies with `pnpm install`, then start the rebuild with `pnpm dev --port 5199`. It is then served at `http://localhost:5199/`.
+- Follow the `agent-navigability-comparison` skill in `.agents/skills/`. It holds the evaluator prompt, the tasks, the WebMCP polyfill, the expected cart, and the scripts and prompt for recording the video.
+- Expect some variation: the live site changes, and each run uses new agents that take slightly different routes.
