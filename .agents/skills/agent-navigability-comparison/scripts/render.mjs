@@ -11,20 +11,59 @@ fs.rmSync(work, { recursive: true, force: true });
 fs.mkdirSync(work, { recursive: true });
 
 const SIDES = [
-  { key: "original", dir: runA, label: "zeiss.com", sub: "Live website", accent: "#c9d1db" },
-  { key: "rebuild", dir: runB, label: "ui-sdk rebuild", sub: "Same pages, built with ui-sdk", accent: "#3d9bff" },
+  {
+    key: "original",
+    dir: runA,
+    label: "zeiss.com",
+    sub: "Live website",
+    accent: "#c9d1db",
+  },
+  {
+    key: "rebuild",
+    dir: runB,
+    label: "ui-sdk rebuild",
+    sub: "Same pages, built with ui-sdk",
+    accent: "#3d9bff",
+  },
 ];
-const STEPS = ["Home", "Nature", "Products", "Trail cams", "Shop", "Product", "Cart"];
+const STEPS = [
+  "Home",
+  "Nature",
+  "Products",
+  "Trail cams",
+  "Shop",
+  "Product",
+  "Cart",
+];
 const FPS = 30;
-const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
-const ffmpeg = (args) => execFileSync("ffmpeg", ["-hide_banner", "-loglevel", "error", "-y", ...args]);
+const esc = (s) =>
+  String(s ?? "").replace(
+    /[&<>"]/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+  );
+const ffmpeg = (args) =>
+  execFileSync("ffmpeg", ["-hide_banner", "-loglevel", "error", "-y", ...args]);
 const duration = (file) =>
-  Number(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", file]).toString());
+  Number(
+    execFileSync("ffprobe", [
+      "-v",
+      "error",
+      "-show_entries",
+      "format=duration",
+      "-of",
+      "csv=p=0",
+      file,
+    ]).toString(),
+  );
 
 function stepOf(url) {
   const u = new URL(url);
   const p = u.pathname.toLowerCase();
-  if (u.hostname.startsWith("shop.") || p.startsWith("/shop") || p.startsWith("/checkout")) {
+  if (
+    u.hostname.startsWith("shop.") ||
+    p.startsWith("/shop") ||
+    p.startsWith("/checkout")
+  ) {
     if (p.includes("checkout/cart")) return 6;
     if (p.includes("secacam")) return 5;
     return 4;
@@ -34,26 +73,51 @@ function stepOf(url) {
   if (p.includes("nature")) return 1;
   return 0;
 }
-const mmss = (ms) => `${String(Math.floor(ms / 60000)).padStart(2, "0")}:${String(Math.floor(ms / 1000) % 60).padStart(2, "0")}`;
+const mmss = (ms) =>
+  `${String(Math.floor(ms / 60000)).padStart(2, "0")}:${String(Math.floor(ms / 1000) % 60).padStart(2, "0")}`;
 
 function beatsFor(side) {
-  const entries = fs.readFileSync(path.join(side.dir, "log.jsonl"), "utf8").trim().split("\n").map(JSON.parse);
-  const meta = JSON.parse(fs.readFileSync(path.join(side.dir, "meta.json"), "utf8"));
-  const videos = Object.fromEntries(meta.tabs.map((t) => [t.id, { ...t, length: duration(t.video) }]));
-  const m = { actions: 0, failed: 0, workarounds: 0, tabs: 1, domains: new Set(), tokens: 0, step: 0 };
+  const entries = fs
+    .readFileSync(path.join(side.dir, "log.jsonl"), "utf8")
+    .trim()
+    .split("\n")
+    .map(JSON.parse);
+  const meta = JSON.parse(
+    fs.readFileSync(path.join(side.dir, "meta.json"), "utf8"),
+  );
+  const videos = Object.fromEntries(
+    meta.tabs.map((t) => [t.id, { ...t, length: duration(t.video) }]),
+  );
+  const m = {
+    actions: 0,
+    failed: 0,
+    workarounds: 0,
+    tabs: 1,
+    domains: new Set(),
+    tokens: 0,
+    step: 0,
+  };
   const beats = [];
   let reads = null;
   const snap = (changed) => ({ ...m, domains: m.domains.size, changed });
   const clip = (tab, from, seconds) => {
     const v = videos[tab];
-    const start = Math.max(0, Math.min((from - v.createdAt) / 1000, v.length - 0.2));
+    const start = Math.max(
+      0,
+      Math.min((from - v.createdAt) / 1000, v.length - 0.2),
+    );
     return { video: v.video, start, seconds };
   };
   const flushReads = () => {
     if (!reads) return;
-    beats.push({ ...clip(reads.tab, reads.t, 0.6), kind: "read",
+    beats.push({
+      ...clip(reads.tab, reads.t, 0.6),
+      kind: "read",
       caption: `Reading the page${reads.n > 1 ? ` ×${reads.n}` : ""}`,
-      detail: `+${Math.round(reads.tokens / 1000)}k tokens of page text`, metrics: snap(["tokens"]), time: reads.t });
+      detail: `+${Math.round(reads.tokens / 1000)}k tokens of page text`,
+      metrics: snap(["tokens"]),
+      time: reads.t,
+    });
     reads = null;
   };
   for (const e of entries) {
@@ -72,21 +136,46 @@ function beatsFor(side) {
     flushReads();
     if (e.kind === "done") {
       m.step = Math.max(m.step, stepOf(e.url));
-      beats.push({ ...clip(e.tab, e.t, 3), kind: "done", caption: "Task complete", detail: e.result, metrics: snap([]), time: e.t });
+      beats.push({
+        ...clip(e.tab, e.t, 3),
+        kind: "done",
+        caption: "Task complete",
+        detail: e.result,
+        metrics: snap([]),
+        time: e.t,
+      });
       continue;
     }
     const changed = ["actions"];
     m.actions += 1;
-    if (!e.ok) { m.failed += 1; changed.push("failed"); }
-    if (e.workaround) { m.workarounds += 1; changed.push("workarounds"); }
+    if (!e.ok) {
+      m.failed += 1;
+      changed.push("failed");
+    }
+    if (e.workaround) {
+      m.workarounds += 1;
+      changed.push("workarounds");
+    }
     if (e.events?.length) changed.push("tabs");
     if (e.url) m.step = Math.max(m.step, stepOf(e.url));
     const tab = e.action === "tab" ? e.activeAfter : e.tab;
     const from = e.action === "tab" ? e.tEnd - 300 : e.tStart - 200;
     const seconds = Math.min(3, Math.max(1.4, (e.tEnd - from) / 1000 + 0.4));
-    beats.push({ ...clip(tab, from, seconds), kind: "act", caption: e.why || e.action,
-      detail: e.ok ? (e.events?.length ? e.events.join(" · ") : "") : `Failed: ${/Timeout .*exceeded/.test(e.error) ? "the click didn't go through (control covered or not clickable)" : e.error}`,
-      ok: e.ok, workaround: e.workaround, metrics: snap(changed), time: e.tEnd, n: m.actions });
+    beats.push({
+      ...clip(tab, from, seconds),
+      kind: "act",
+      caption: e.why || e.action,
+      detail: e.ok
+        ? e.events?.length
+          ? e.events.join(" · ")
+          : ""
+        : `Failed: ${/Timeout .*exceeded/.test(e.error) ? "the click didn't go through (control covered or not clickable)" : e.error}`,
+      ok: e.ok,
+      workaround: e.workaround,
+      metrics: snap(changed),
+      time: e.tEnd,
+      n: m.actions,
+    });
   }
   flushReads();
   return { beats, meta, final: snap([]) };
@@ -123,12 +212,26 @@ function panel(side, beat) {
   const m = beat.metrics;
   const tile = (key, value, label, bad) =>
     `<div class="tile ${bad ? "bad" : ""} ${m.changed.includes(key) ? "hit" : ""}"><b>${value}</b><span>${label}</span></div>`;
-  const cls = beat.kind === "done" ? "done" : beat.kind === "read" ? "read" : !beat.ok ? "fail" : beat.workaround ? "work" : "";
-  const tag = beat.kind === "done" ? `<span class="tag ok">✓ DONE</span>`
-    : beat.kind === "read" ? `<span class="tag">READ</span>`
-    : !beat.ok ? `<span class="tag f">✗ FAILED</span>`
-    : beat.workaround ? `<span class="tag w">WORKAROUND</span>`
-    : `<span class="tag">#${beat.n}</span>`;
+  const cls =
+    beat.kind === "done"
+      ? "done"
+      : beat.kind === "read"
+        ? "read"
+        : !beat.ok
+          ? "fail"
+          : beat.workaround
+            ? "work"
+            : "";
+  const tag =
+    beat.kind === "done"
+      ? `<span class="tag ok">✓ DONE</span>`
+      : beat.kind === "read"
+        ? `<span class="tag">READ</span>`
+        : !beat.ok
+          ? `<span class="tag f">✗ FAILED</span>`
+          : beat.workaround
+            ? `<span class="tag w">WORKAROUND</span>`
+            : `<span class="tag">#${beat.n}</span>`;
   return `<html><head><style>${css}</style></head><body style="--accent:${side.accent}">
   <div class="head"><div><h2>${esc(side.label)}</h2><p>${esc(side.sub)}</p></div>
   </div>
@@ -158,10 +261,37 @@ for (const side of SIDES) {
     await page.screenshot({ path: png });
     const mp4 = path.join(work, `${side.key}-${i}.mp4`);
     const d = beat.seconds.toFixed(2);
-    ffmpeg(["-loop", "1", "-framerate", String(FPS), "-t", d, "-i", png,
-      "-ss", beat.start.toFixed(2), "-t", d, "-i", beat.video,
-      "-filter_complex", `[1:v]fps=${FPS},scale=920:575,tpad=stop_mode=clone:stop_duration=${d}[v];[0:v][v]overlay=20:118:shortest=1,format=yuv420p[o]`,
-      "-map", "[o]", "-t", d, "-r", String(FPS), "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", mp4]);
+    ffmpeg([
+      "-loop",
+      "1",
+      "-framerate",
+      String(FPS),
+      "-t",
+      d,
+      "-i",
+      png,
+      "-ss",
+      beat.start.toFixed(2),
+      "-t",
+      d,
+      "-i",
+      beat.video,
+      "-filter_complex",
+      `[1:v]fps=${FPS},scale=920:575,tpad=stop_mode=clone:stop_duration=${d}[v];[0:v][v]overlay=20:118:shortest=1,format=yuv420p[o]`,
+      "-map",
+      "[o]",
+      "-t",
+      d,
+      "-r",
+      String(FPS),
+      "-c:v",
+      "libx264",
+      "-preset",
+      "veryfast",
+      "-crf",
+      "20",
+      mp4,
+    ]);
     list.push(`file '${mp4}'`);
   }
   const listFile = path.join(work, `${side.key}.txt`);
@@ -182,19 +312,44 @@ const card = async (html, name, seconds) => {
   const png = path.join(work, `${name}.png`);
   await page.screenshot({ path: png });
   const mp4 = path.join(work, `${name}.mp4`);
-  ffmpeg(["-loop", "1", "-framerate", String(FPS), "-t", String(seconds), "-i", png, "-vf", "format=yuv420p", "-r", String(FPS), "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", mp4]);
+  ffmpeg([
+    "-loop",
+    "1",
+    "-framerate",
+    String(FPS),
+    "-t",
+    String(seconds),
+    "-i",
+    png,
+    "-vf",
+    "format=yuv420p",
+    "-r",
+    String(FPS),
+    "-c:v",
+    "libx264",
+    "-preset",
+    "veryfast",
+    "-crf",
+    "20",
+    mp4,
+  ]);
   return { png, mp4 };
 };
 
 const [a, b] = results;
-const title = await card(`<div class="k">Agent navigability · ZEISS buyer journey</div>
+const title = await card(
+  `<div class="k">Agent navigability · ZEISS buyer journey</div>
   <h1>Same task, two websites:<br>an AI agent buys a ZEISS trail camera on <em>zeiss.com</em> and on a <em>ui-sdk</em> rebuild</h1>
   <p>Two separate agents got the same instruction: from the ZEISS homepage, find trail cameras, go to the online shop, filter to 100° wide-angle, add 2 of the cheapest to the cart, and read the cart totals.</p>
-  <ul><li><b>Red box</b>: the element the agent is about to use</li><li><b>Actions, workarounds, failed actions</b>: how much effort each step took</li><li><b>Tabs / sites</b> and <b>page text read</b>: how much the agent had to keep track of and read</li><li>Thinking pauses are cut; each action plays at real speed</li></ul>`, "title", 9);
+  <ul><li><b>Red box</b>: the element the agent is about to use</li><li><b>Actions, workarounds, failed actions</b>: how much effort each step took</li><li><b>Tabs / sites</b> and <b>page text read</b>: how much the agent had to keep track of and read</li><li>Thinking pauses are cut; each action plays at real speed</li></ul>`,
+  "title",
+  9,
+);
 
 const row = (label, ka, kb, fmt = (x) => x) =>
   `<tr><td>${label}</td><td class="n">${fmt(ka)}</td><td class="n b">${fmt(kb)}</td></tr>`;
-const end = await card(`<div class="k">Result</div><h1>${[a, b].every((r) => String(r.meta.result).includes("299.98")) ? "Both agents reached the correct cart. Here's what it took." : "Here's what each agent achieved, and what it took."}</h1>
+const end = await card(
+  `<div class="k">Result</div><h1>${[a, b].every((r) => String(r.meta.result).includes("299.98")) ? "Both agents reached the correct cart. Here's what it took." : "Here's what each agent achieved, and what it took."}</h1>
   <table><tr><th></th><th class="n">zeiss.com</th><th class="n">ui-sdk rebuild</th></tr>
   ${row("Actions", a.final.actions, b.final.actions)}
   ${row("Workarounds", a.final.workarounds, b.final.workarounds)}
@@ -202,7 +357,10 @@ const end = await card(`<div class="k">Result</div><h1>${[a, b].every((r) => Str
   ${row("Tabs / sites", `${a.final.tabs} / ${a.final.domains}`, `${b.final.tabs} / ${b.final.domains}`)}
   ${row("Page text read", `${Math.round(a.final.tokens / 1000)}k tokens`, `${Math.round(b.final.tokens / 1000)}k tokens`)}
   </table>
-  <div class="foot">zeiss.com: ${esc(a.meta.result)}<br>Rebuild: ${esc(b.meta.result)}<br>The rebuild has less content than the live site and stays on one domain, so part of the gap comes from that rather than from ui-sdk.</div>`, "end", 10);
+  <div class="foot">zeiss.com: ${esc(a.meta.result)}<br>Rebuild: ${esc(b.meta.result)}<br>The rebuild has less content than the live site and stays on one domain, so part of the gap comes from that rather than from ui-sdk.</div>`,
+  "end",
+  10,
+);
 
 await browser.close();
 
@@ -210,15 +368,77 @@ await browser.close();
 const [da, db] = sideFiles.map(duration);
 const longest = Math.max(da, db);
 const stacked = path.join(work, "stacked.mp4");
-ffmpeg(["-i", sideFiles[0], "-i", sideFiles[1], "-filter_complex",
+ffmpeg([
+  "-i",
+  sideFiles[0],
+  "-i",
+  sideFiles[1],
+  "-filter_complex",
   `[0:v]tpad=stop_mode=clone:stop_duration=${(longest - da + 0.1).toFixed(2)}[l];[1:v]tpad=stop_mode=clone:stop_duration=${(longest - db + 0.1).toFixed(2)}[r];[l][r]hstack=inputs=2,format=yuv420p[o]`,
-  "-map", "[o]", "-t", longest.toFixed(2), "-r", String(FPS), "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", stacked]);
+  "-map",
+  "[o]",
+  "-t",
+  longest.toFixed(2),
+  "-r",
+  String(FPS),
+  "-c:v",
+  "libx264",
+  "-preset",
+  "veryfast",
+  "-crf",
+  "20",
+  stacked,
+]);
 
 const listFile = path.join(work, "all.txt");
-fs.writeFileSync(listFile, [title.mp4, stacked, end.mp4].map((f) => `file '${f}'`).join("\n"));
+fs.writeFileSync(
+  listFile,
+  [title.mp4, stacked, end.mp4].map((f) => `file '${f}'`).join("\n"),
+);
 const final = path.join(outDir, "agent-journey-side-by-side.mp4");
-ffmpeg(["-f", "concat", "-safe", "0", "-i", listFile, "-c:v", "libx264", "-preset", "slow", "-crf", "24", "-movflags", "+faststart", "-pix_fmt", "yuv420p", final]);
+ffmpeg([
+  "-f",
+  "concat",
+  "-safe",
+  "0",
+  "-i",
+  listFile,
+  "-c:v",
+  "libx264",
+  "-preset",
+  "slow",
+  "-crf",
+  "24",
+  "-movflags",
+  "+faststart",
+  "-pix_fmt",
+  "yuv420p",
+  final,
+]);
 fs.copyFileSync(end.png, path.join(outDir, "agent-journey-result.png"));
 // A mid-journey still for the report.
-ffmpeg(["-ss", (9 + longest * 0.55).toFixed(2), "-i", final, "-frames:v", "1", path.join(outDir, "agent-journey-still.png")]);
-console.log(JSON.stringify({ final, seconds: duration(final), sides: [da, db], results: results.map((r) => ({ side: r.side.key, beats: r.beats, ...r.final })) }, null, 1));
+ffmpeg([
+  "-ss",
+  (9 + longest * 0.55).toFixed(2),
+  "-i",
+  final,
+  "-frames:v",
+  "1",
+  path.join(outDir, "agent-journey-still.png"),
+]);
+console.log(
+  JSON.stringify(
+    {
+      final,
+      seconds: duration(final),
+      sides: [da, db],
+      results: results.map((r) => ({
+        side: r.side.key,
+        beats: r.beats,
+        ...r.final,
+      })),
+    },
+    null,
+    1,
+  ),
+);

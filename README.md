@@ -23,14 +23,14 @@ The buyer journey follows the live site from the homepage to a cart: Nature Obse
 
 In the video, two agents do the trail-camera buyer journey at the same time: zeiss.com on the left and the ui-sdk rebuild on the right. Each agent sees only its own site and knows nothing about how either was built. These are the counts from that recorded run:
 
-| Metric | zeiss.com | Rebuild |
-| --- | --- | --- |
-| Correct cart (€299.98) | ✅ | ✅ |
-| Actions (clicks, typing, keys, and waits) | 36 | 14 |
-| Workarounds (flagged by the agent) | 14 | 1 |
-| Failed actions | 7 | 0 |
-| Tabs / sites | 3 / 2 | 1 / 1 |
-| Page text read | ~154k tokens | ~35k tokens |
+| Metric                                    | zeiss.com    | Rebuild     |
+| ----------------------------------------- | ------------ | ----------- |
+| Correct cart (€299.98)                    | ✅           | ✅          |
+| Actions (clicks, typing, keys, and waits) | 36           | 14          |
+| Workarounds (flagged by the agent)        | 14           | 1           |
+| Failed actions                            | 7            | 0           |
+| Tabs / sites                              | 3 / 2        | 1 / 1       |
+| Page text read                            | ~154k tokens | ~35k tokens |
 
 How to read the table:
 
@@ -55,11 +55,11 @@ The report separates what holds up from what doesn't. The genuine gains come fro
 
 ## What's in this repository
 
-| Path | Contents |
-| --- | --- |
-| `src/` | The rebuild: homepage, Nature Observation pages, shop, and cart |
-| `docs/agent-navigability.md` | The comparison report |
-| `docs/video/`, `docs/images/` | The side-by-side video and the screenshots used in the report |
+| Path                                            | Contents                                                                                |
+| ----------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `src/`                                          | The rebuild: homepage, Nature Observation pages, shop, and cart                         |
+| `docs/agent-navigability.md`                    | The comparison report                                                                   |
+| `docs/video/`, `docs/images/`                   | The side-by-side video and the screenshots used in the report                           |
 | `.agents/skills/agent-navigability-comparison/` | The method: the agent prompts, tasks, and scripts used to run and record the comparison |
 
 To run the rebuild or repeat the comparison, see [Reproducing](docs/agent-navigability.md#reproducing) in the report.

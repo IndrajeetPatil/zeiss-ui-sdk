@@ -20,8 +20,10 @@ const paths: Record<
   microscope: "M6 21h12 M9 21v-3a6 6 0 0 1 9-5 M10 4l4 2-3 6-4-2Z M12 2l3 1.5",
   aperture:
     "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z M14.3 8l5.7 9.9 M9.7 8h11.5 M7.4 12l5.8-10 M9.7 16 4 6.1 M14.3 16H2.8 M16.6 12l-5.8 10",
-  target: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z M12 1v6 M12 17v6 M1 12h6 M17 12h6",
-  projector: "M3 9h14v8H3Z M10 13m-2 0a2 2 0 1 0 4 0 2 2 0 1 0-4 0 M17 11l4-2v8l-4-2",
+  target:
+    "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z M12 1v6 M12 17v6 M1 12h6 M17 12h6",
+  projector:
+    "M3 9h14v8H3Z M10 13m-2 0a2 2 0 1 0 4 0 2 2 0 1 0-4 0 M17 11l4-2v8l-4-2",
   prism: "M12 3 3 20h18Z M1 14l8-1 M15 12l8-3 M15 13l8 1 M15 14l8 5",
   screen: "M3 4h18v12H3Z M8 20h8 M12 16v4",
   search: "M10.5 3a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15Z M16 16l5 5",
@@ -37,7 +39,13 @@ const paths: Record<
   close: "M6 6l12 12 M18 6 6 18",
 };
 
-function Icon({ name, size = 24 }: { name: keyof typeof paths; size?: number }) {
+function Icon({
+  name,
+  size = 24,
+}: {
+  name: keyof typeof paths;
+  size?: number;
+}) {
   return (
     <svg
       aria-hidden="true"
@@ -56,9 +64,23 @@ function Icon({ name, size = 24 }: { name: keyof typeof paths; size?: number }) 
 
 function ZeissLogo() {
   return (
-    <svg viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="ZEISS">
-      <rect width="48" height="48" fill="#0f2db3" />
-      <path d="M0 10 Q24 3 48 10 V0 H0Z" fill="#fff" opacity=".18" />
+    <svg
+      viewBox="0 0 48 48"
+      width="48"
+      height="48"
+      role="img"
+      aria-label="ZEISS"
+    >
+      <rect
+        width="48"
+        height="48"
+        fill="#0f2db3"
+      />
+      <path
+        d="M0 10 Q24 3 48 10 V0 H0Z"
+        fill="#fff"
+        opacity=".18"
+      />
       <text
         x="24"
         y="29"
@@ -71,7 +93,11 @@ function ZeissLogo() {
       >
         ZEISS
       </text>
-      <path d="M0 38 Q24 45 48 38 V48 H0Z" fill="#fff" opacity=".18" />
+      <path
+        d="M0 38 Q24 45 48 38 V48 H0Z"
+        fill="#fff"
+        opacity=".18"
+      />
     </svg>
   );
 }

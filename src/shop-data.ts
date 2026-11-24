@@ -169,7 +169,10 @@ const trailCameraModels = [
     sensor: "3 MP (up 24 MP interpolated)",
     features: ["Integrated Memory", "Test Image Button", "Fast & Easy Set-up"],
     isNew: true,
-    image: rendition(`${PNO}/products/trail-cameras/_products/zeiss-secacam-1.jpg`, "360.270"),
+    image: rendition(
+      `${PNO}/products/trail-cameras/_products/zeiss-secacam-1.jpg`,
+      "360.270",
+    ),
   },
   {
     name: "ZEISS Secacam 3",
@@ -177,9 +180,16 @@ const trailCameraModels = [
     fov: "60° − 100°*",
     range: "up to 25 m",
     sensor: "3 MP (up 24 MP interpolated)",
-    features: ['Hinged 1.9" Display', "Fast & Easy Setup", "Low-power Data Processing"],
+    features: [
+      'Hinged 1.9" Display',
+      "Fast & Easy Setup",
+      "Low-power Data Processing",
+    ],
     isNew: false,
-    image: rendition(`${PNO}/products/trail-cameras/_products/zeiss-secacam-3.jpg`, "360.270"),
+    image: rendition(
+      `${PNO}/products/trail-cameras/_products/zeiss-secacam-3.jpg`,
+      "360.270",
+    ),
   },
   {
     name: "ZEISS Secacam 5",
@@ -187,9 +197,16 @@ const trailCameraModels = [
     fov: "60° − 100°*",
     range: "up to 25 m",
     sensor: "5 MP (up 12 MP interpolated)",
-    features: ["Wide-Angle Version Available", "Small and Compact", "Plug and Play Functionality"],
+    features: [
+      "Wide-Angle Version Available",
+      "Small and Compact",
+      "Plug and Play Functionality",
+    ],
     isNew: false,
-    image: rendition(`${PNO}/products/trail-cameras/_products/zeiss-secacam-5.jpg`, "360.270"),
+    image: rendition(
+      `${PNO}/products/trail-cameras/_products/zeiss-secacam-5.jpg`,
+      "360.270",
+    ),
   },
   {
     name: "ZEISS Secacam 7",
@@ -203,13 +220,22 @@ const trailCameraModels = [
       "Built to Withstand the Elements",
     ],
     isNew: false,
-    image: rendition(`${PNO}/products/trail-cameras/_products/zeiss-secacam-7.jpg`, "360.270"),
+    image: rendition(
+      `${PNO}/products/trail-cameras/_products/zeiss-secacam-7.jpg`,
+      "360.270",
+    ),
   },
 ];
 
 const pnoImages = {
-  natureHero: rendition(`${PNO}/_home/stage/zeiss-nature-observation-stage.jpg`, "1440.480"),
-  productsTile: rendition(`${PNO}/_home/teaser/zeiss-nature-observation-products.jpg`, "1024.576"),
+  natureHero: rendition(
+    `${PNO}/_home/stage/zeiss-nature-observation-stage.jpg`,
+    "1440.480",
+  ),
+  productsTile: rendition(
+    `${PNO}/_home/teaser/zeiss-nature-observation-products.jpg`,
+    "1024.576",
+  ),
   cooperationsTile: rendition(
     `${PNO}/_home/teaser/zeiss-nature-observation-cooperations.jpg`,
     "768.576",
@@ -218,9 +244,15 @@ const pnoImages = {
     `${PNO}/products/_stage/zeiss-nature-observation-products-stage.jpg`,
     "1440.480",
   ),
-  binoculars: rendition(`${PNO}/products/_products/zeiss-binoculars.jpg`, "768.384"),
+  binoculars: rendition(
+    `${PNO}/products/_products/zeiss-binoculars.jpg`,
+    "768.384",
+  ),
   spottingScopes: `${PNO}/products/spotting-scopes/conquest-apia/teaser/zeiss_apia_nature_teaser.jpg/_jcr_content/renditions/original.image_file.768.432.0,0,6182,3479.file/zeiss_apia_nature_teaser.jpg`,
-  trailCameras: rendition(`${PNO}/products/_products/zeiss-trail-cameras.jpg`, "768.384"),
+  trailCameras: rendition(
+    `${PNO}/products/_products/zeiss-trail-cameras.jpg`,
+    "768.384",
+  ),
   monoculars: `${PNO}/products/_products/zeiss-monoculars.jpg/_jcr_content/renditions/original.image_file.768.384.0,120,3840,2040.file/zeiss-monoculars.jpg`,
   trailHero: rendition(
     `${PNO}/products/trail-cameras/_stage/zeiss-trail-cameras-stage.jpg`,

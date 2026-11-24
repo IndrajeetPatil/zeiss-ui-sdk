@@ -30,16 +30,16 @@ In both runs, each agent saw only one site and knew nothing about how either sit
 
 ## Verdict
 
-| | Original | Rebuild |
-| --- | --- | --- |
-| **Buyer journey score** | **6.5 / 10** | **8 / 10** |
-| Journey completed with the correct cart | ✅ | ✅ |
-| Journey actions | 18 | 14 |
-| Journey workarounds | 7 | 1 |
-| Tabs and domains | 3 tabs, 2 domains | 1 tab, 1 domain |
-| **Homepage tasks score** | **5 / 10** | **8 / 10** |
-| Homepage tasks fully done | 4 of 8 | 8 of 8 |
-| WebMCP tools exposed | None | `snapshot`, `act`, `query` |
+|                                         | Original          | Rebuild                    |
+| --------------------------------------- | ----------------- | -------------------------- |
+| **Buyer journey score**                 | **6.5 / 10**      | **8 / 10**                 |
+| Journey completed with the correct cart | ✅                | ✅                         |
+| Journey actions                         | 18                | 14                         |
+| Journey workarounds                     | 7                 | 1                          |
+| Tabs and domains                        | 3 tabs, 2 domains | 1 tab, 1 domain            |
+| **Homepage tasks score**                | **5 / 10**        | **8 / 10**                 |
+| Homepage tasks fully done               | 4 of 8            | 8 of 8                     |
+| WebMCP tools exposed                    | None              | `snapshot`, `act`, `query` |
 
 These numbers come from the written evaluation. The recorded run in the [video](#video-the-buyer-journey-side-by-side) counted more actions on the original (36 rather than 18), for reasons given in that section.
 
@@ -85,15 +85,15 @@ The original is not bad everywhere. Its shop filter, quantity field, and add-to-
 
 [Watch the clip](video/agent-journey-side-by-side.mp4) (about 2 minutes, 1920×1080). This is the recorded run: two fresh agents, separate from those in the written evaluation, did the buyer journey, one per site. A red box marks each control just before the agent uses it. Thinking pauses are cut, so the length of each side tracks how many actions it took. "Page text read" estimates the snapshot text the agent read, as characters ÷ 4.
 
-| Recorded run | zeiss.com | Rebuild |
-| --- | --- | --- |
-| Correct cart (€299.98) | ✅ | ✅ |
-| Actions (clicks, typing, keys, and waits) | 36 | 14 |
-| Workarounds (flagged by the agent) | 14 | 1 |
-| Failed actions | 7 | 0 |
-| Tabs / sites | 3 / 2 | 1 / 1 |
-| Page text read | ~154k tokens | ~35k tokens |
-| Agent's own score | 5 / 10 | 8 / 10 |
+| Recorded run                              | zeiss.com    | Rebuild     |
+| ----------------------------------------- | ------------ | ----------- |
+| Correct cart (€299.98)                    | ✅           | ✅          |
+| Actions (clicks, typing, keys, and waits) | 36           | 14          |
+| Workarounds (flagged by the agent)        | 14           | 1           |
+| Failed actions                            | 7            | 0           |
+| Tabs / sites                              | 3 / 2        | 1 / 1       |
+| Page text read                            | ~154k tokens | ~35k tokens |
+| Agent's own score                         | 5 / 10       | 8 / 10      |
 
 - **Where the zeiss.com run lost time:**
   - The **Products** mega-menu on the Nature Observation site: four clicks on "Trail Cameras" either timed out or did nothing, so the agent finally typed the page's URL.
@@ -117,12 +117,12 @@ This section and the next come from the written evaluation. The task, given verb
 
 > Starting from the ZEISS Group homepage, find ZEISS's trail cameras for nature observation and go to the official ZEISS online shop that sells them. In the shop, filter the trail cameras to those with a **100° wide-angle field of view**, and pick the **cheapest** one. Open its product page, set the quantity to **2**, and add it to the cart. Open the full shopping cart page, then report the product name, product number, quantity, unit price, shipping cost, and grand total. Do not click "Go to checkout" and do not enter any personal or payment data.
 
-| Original product page | Rebuild product page |
-| --- | --- |
+| Original product page                                                                         | Rebuild product page                                                                 |
+| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | ![Original shop product page for the ZEISS Secacam 3 Wide-Angle](images/original-product.png) | ![Rebuilt product page for the ZEISS Secacam 3 Wide-Angle](images/clone-product.png) |
 
-| Original cart | Rebuild cart |
-| --- | --- |
+| Original cart                                                                                 | Rebuild cart                                                                         |
+| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | ![Original shop cart with two cameras and a grand total of €299.98](images/original-cart.png) | ![Rebuilt cart with two cameras and a grand total of €299.98](images/clone-cart.png) |
 
 ### The path
@@ -140,52 +140,52 @@ flowchart LR
 
 ### Both agents ended with the same cart
 
-| Field | Original | Rebuild |
-| --- | --- | --- |
-| Product | ZEISS Secacam 3 Wide-Angle | ZEISS Secacam 3 Wide-Angle |
-| Product number | SC-000-130-100 | SC-000-130-100 |
-| Quantity | 2 | 2 |
-| Unit price | €149.99 | €149.99 |
-| Shipping | €0.00 | €0.00 |
-| Grand total | €299.98 (net €252.08 + VAT €47.90) | €299.98 (net €252.08 + VAT €47.90) |
+| Field          | Original                           | Rebuild                            |
+| -------------- | ---------------------------------- | ---------------------------------- |
+| Product        | ZEISS Secacam 3 Wide-Angle         | ZEISS Secacam 3 Wide-Angle         |
+| Product number | SC-000-130-100                     | SC-000-130-100                     |
+| Quantity       | 2                                  | 2                                  |
+| Unit price     | €149.99                            | €149.99                            |
+| Shipping       | €0.00                              | €0.00                              |
+| Grand total    | €299.98 (net €252.08 + VAT €47.90) | €299.98 (net €252.08 + VAT €47.90) |
 
 ### Step by step
 
-| Step | Original | Rebuild |
-| --- | --- | --- |
-| Homepage | 3 actions. Reject cookies, open the `tab "Hunting Nature Observation"`, and follow `link "ZEISS products for nature observation"`, which opens a **new tab** without saying so | 3 actions. Reject cookies, open the `tab "Hunting and Nature Observation"`, and follow `link "Products for nature observation"` in the same tab |
-| Nature Observation → Trail Cameras | 4 actions, including a tab switch. `link "Products"` navigates if clicked early but opens a mega-menu if clicked after scripts load. In the menu, `link "Trail Cameras"` opens a submenu with no `aria-expanded`, and "Overview" appears twice | 2 actions. `link "ZEISS Nature Observation Products"`, then `link "ZEISS Trail Cameras"` in its named region |
-| To the shop | 1 action, plus a tab switch. `link "ZEISS Online Shop"` opens a **second new tab** on `shop.zeiss.com` | 1 action. `link "ZEISS Online Shop"`, same tab |
-| Shop cookie banner | 1 action. A second, different banner: `dialog "Privacy Settings"` › `button "Deny"` | 1 action. The same banner design again: `button "Reject All"` |
-| Filter | 4 actions. `button "Choose filter"` sometimes ignores the first click while the page loads. `checkbox "100° angle"` works, but nothing announces the new results, and the panel stays open over them. Escape doesn't close it, so the agent clicked the toggle again | 3 actions. `button "Choose filter" [expanded]`, `checkbox "100° angle" [checked]`, then `button "Show 2 products"`. A `status` announces "2 products" |
-| Pick the product | 1 action, picked **by position**: every card has two links with the same name, and one card's image link is mislabelled "ZEISS Secacam 7" | 1 action. `link "ZEISS Secacam 3 Wide-Angle"` |
-| Quantity and add to cart | 2 actions. `spinbutton "Quantity"` works, but `main` holds **14** `button "Add to shopping cart"`, so the agent picked the first by position | 2 actions. `textbox "Quantity"`, then `button "Add to shopping cart"` |
-| Cart drawer → cart page | 1 action. `dialog "Shopping cart"`, with an `alert` "2 products added to your shopping cart.", then `link "Display shopping cart"` | 1 action. `dialog "Shopping cart"`, with a `status` "2 products added to your shopping cart.", then `link "Display shopping cart"` |
-| Read the cart | Totals read **by position**: the `definition` values have no names | Totals read through CSS (`dt`/`dd`): the summary has no queryable names either |
+| Step                               | Original                                                                                                                                                                                                                                                             | Rebuild                                                                                                                                               |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Homepage                           | 3 actions. Reject cookies, open the `tab "Hunting Nature Observation"`, and follow `link "ZEISS products for nature observation"`, which opens a **new tab** without saying so                                                                                       | 3 actions. Reject cookies, open the `tab "Hunting and Nature Observation"`, and follow `link "Products for nature observation"` in the same tab       |
+| Nature Observation → Trail Cameras | 4 actions, including a tab switch. `link "Products"` navigates if clicked early but opens a mega-menu if clicked after scripts load. In the menu, `link "Trail Cameras"` opens a submenu with no `aria-expanded`, and "Overview" appears twice                       | 2 actions. `link "ZEISS Nature Observation Products"`, then `link "ZEISS Trail Cameras"` in its named region                                          |
+| To the shop                        | 1 action, plus a tab switch. `link "ZEISS Online Shop"` opens a **second new tab** on `shop.zeiss.com`                                                                                                                                                               | 1 action. `link "ZEISS Online Shop"`, same tab                                                                                                        |
+| Shop cookie banner                 | 1 action. A second, different banner: `dialog "Privacy Settings"` › `button "Deny"`                                                                                                                                                                                  | 1 action. The same banner design again: `button "Reject All"`                                                                                         |
+| Filter                             | 4 actions. `button "Choose filter"` sometimes ignores the first click while the page loads. `checkbox "100° angle"` works, but nothing announces the new results, and the panel stays open over them. Escape doesn't close it, so the agent clicked the toggle again | 3 actions. `button "Choose filter" [expanded]`, `checkbox "100° angle" [checked]`, then `button "Show 2 products"`. A `status` announces "2 products" |
+| Pick the product                   | 1 action, picked **by position**: every card has two links with the same name, and one card's image link is mislabelled "ZEISS Secacam 7"                                                                                                                            | 1 action. `link "ZEISS Secacam 3 Wide-Angle"`                                                                                                         |
+| Quantity and add to cart           | 2 actions. `spinbutton "Quantity"` works, but `main` holds **14** `button "Add to shopping cart"`, so the agent picked the first by position                                                                                                                         | 2 actions. `textbox "Quantity"`, then `button "Add to shopping cart"`                                                                                 |
+| Cart drawer → cart page            | 1 action. `dialog "Shopping cart"`, with an `alert` "2 products added to your shopping cart.", then `link "Display shopping cart"`                                                                                                                                   | 1 action. `dialog "Shopping cart"`, with a `status` "2 products added to your shopping cart.", then `link "Display shopping cart"`                    |
+| Read the cart                      | Totals read **by position**: the `definition` values have no names                                                                                                                                                                                                   | Totals read through CSS (`dt`/`dd`): the summary has no queryable names either                                                                        |
 
 ### Shop controls and their state
 
-| Control | Original | Rebuild |
-| --- | --- | --- |
-| Filter toggle | `aria-expanded`; renamed "1 filters active" | `aria-expanded`; renamed "1 filter active"; a labelled list "Active filters" with removable chips |
-| Filter options | Real checkboxes with `[checked]`, grouped as `list "Field of view"` | Real checkboxes with `[checked]` in labelled groups |
-| Result count | None, and no live region | `status` "2 products" |
-| Sort | Unnamed `combobox` | `combobox "Sort by"` |
-| Price range | Named spinbuttons; the two sliders have no names | Named thumbs "Minimum price" and "Maximum price" |
-| Quantity | `spinbutton` with value, min, and max; its live region stayed empty | `textbox` with a value; no min or max exposed. "Decrease quantity" shows `[disabled]` at 1 |
-| Add to cart | Opens `dialog "Shopping cart"` and announces through two `alert`s | Opens `dialog "Shopping cart"`, moves focus into it, and announces through a `status` |
-| Header cart link | `link "Shopping cart"`, with no item count | `link "Shopping cart 1 item"` (it counts lines, not units) |
-| Page title | Changes per page ("Shopping cart \| ZEISS Secacam") | "ZEISS Group Global" on every page |
+| Control          | Original                                                            | Rebuild                                                                                           |
+| ---------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| Filter toggle    | `aria-expanded`; renamed "1 filters active"                         | `aria-expanded`; renamed "1 filter active"; a labelled list "Active filters" with removable chips |
+| Filter options   | Real checkboxes with `[checked]`, grouped as `list "Field of view"` | Real checkboxes with `[checked]` in labelled groups                                               |
+| Result count     | None, and no live region                                            | `status` "2 products"                                                                             |
+| Sort             | Unnamed `combobox`                                                  | `combobox "Sort by"`                                                                              |
+| Price range      | Named spinbuttons; the two sliders have no names                    | Named thumbs "Minimum price" and "Maximum price"                                                  |
+| Quantity         | `spinbutton` with value, min, and max; its live region stayed empty | `textbox` with a value; no min or max exposed. "Decrease quantity" shows `[disabled]` at 1        |
+| Add to cart      | Opens `dialog "Shopping cart"` and announces through two `alert`s   | Opens `dialog "Shopping cart"`, moves focus into it, and announces through a `status`             |
+| Header cart link | `link "Shopping cart"`, with no item count                          | `link "Shopping cart 1 item"` (it counts lines, not units)                                        |
+| Page title       | Changes per page ("Shopping cart \| ZEISS Secacam")                 | "ZEISS Group Global" on every page                                                                |
 
 ### Accessibility snapshot size
 
-| Page | Original | Rebuild |
-| --- | --- | --- |
-| Homepage | 14.1k characters, 310 lines | 8.8k characters, 254 lines |
-| Trail Cameras | 15.6k characters, 335 lines | 4.1k characters, 120 lines |
-| Shop listing, filtered | 6.9k characters, 211 lines | 3.3k characters, 104 lines |
-| Product page | 15.7k characters, 342 lines | 6.5k characters, 185 lines |
-| Cart page | 5.2k characters, 145 lines | 3.6k characters, 105 lines |
+| Page                   | Original                    | Rebuild                    |
+| ---------------------- | --------------------------- | -------------------------- |
+| Homepage               | 14.1k characters, 310 lines | 8.8k characters, 254 lines |
+| Trail Cameras          | 15.6k characters, 335 lines | 4.1k characters, 120 lines |
+| Shop listing, filtered | 6.9k characters, 211 lines  | 3.3k characters, 104 lines |
+| Product page           | 15.7k characters, 342 lines | 6.5k characters, 185 lines |
+| Cart page              | 5.2k characters, 145 lines  | 3.6k characters, 105 lines |
 
 Both homepages are mostly noise for this task (about 95% of each is unrelated news, events, stories, and footer). The rebuild's pages are smaller mainly because they hold less content.
 
@@ -193,33 +193,33 @@ Both homepages are mostly noise for this task (about 95% of each is unrelated ne
 
 No page on the original registers tools. On the rebuild, the agent repeated the journey through `snapshot`, `act`, and `query`. A **UI fallback** is a step where the tools couldn't do the job, so the agent operated the page directly instead:
 
-| Step | Tool calls | UI fallbacks | Notes |
-| --- | --- | --- | --- |
-| Homepage | 2 | 0 | One `act` rejected cookies, opened the tab, and followed the link |
-| Nature Observation → Trail Cameras | 2 | 1 | Opening the menu works, but its links aren't components, so `query` returns nothing |
-| To the shop | 1 | 0 | |
-| Filter and pick | 4 | 1 | An `act` that names "100° angle" fails while the filter popover is closed, and the error doesn't point to "Choose filter". The steps before the failure had already run. The product link needed a click |
-| Quantity and add to cart | 1 | 1 | One `act` set quantity 2 and added to the cart; "Display shopping cart" needed a click |
-| Cart | 3 | 1 | `query` can't find "Grand total"; row text is cut at 80 characters, so prices are lost |
+| Step                               | Tool calls | UI fallbacks | Notes                                                                                                                                                                                                    |
+| ---------------------------------- | ---------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Homepage                           | 2          | 0            | One `act` rejected cookies, opened the tab, and followed the link                                                                                                                                        |
+| Nature Observation → Trail Cameras | 2          | 1            | Opening the menu works, but its links aren't components, so `query` returns nothing                                                                                                                      |
+| To the shop                        | 1          | 0            |                                                                                                                                                                                                          |
+| Filter and pick                    | 4          | 1            | An `act` that names "100° angle" fails while the filter popover is closed, and the error doesn't point to "Choose filter". The steps before the failure had already run. The product link needed a click |
+| Quantity and add to cart           | 1          | 1            | One `act` set quantity 2 and added to the cart; "Display shopping cart" needed a click                                                                                                                   |
+| Cart                               | 3          | 1            | `query` can't find "Grand total"; row text is cut at 80 characters, so prices are lost                                                                                                                   |
 
 That's 13 tool calls (one failed) and 4 UI fallbacks. The agent rated the tools about 6/10 on their own. The tools are efficient for changing state, and they flag "Go to checkout" as needing a person. But they can't follow ordinary links or read prices and totals, so they work alongside the accessibility tree; they can't stand in for it.
 
 ## Homepage tasks
 
-| Original | Rebuild |
-| --- | --- |
+| Original                                                                            | Rebuild                                                                         |
+| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | ![Original zeiss.com homepage with its cookie dialog open](images/original-top.png) | ![ui-sdk rebuild of the homepage after rejecting cookies](images/clone-top.png) |
 
-| # | Task | Original | Rebuild |
-| --- | --- | --- | --- |
-| 1 | Reject cookies | ✅ 1 action | ✅ 1 action |
-| 2 | Divisions → Photography | 🟡 3 actions. The main navigation has no division list; "Products and solutions" leaves the page | ✅ 2 actions. The menu lists all 15 divisions and selects the matching tab |
-| 3 | Search "Planetariums" | ✅ 3 actions, on a separate results page with unnamed pagination | ✅ 3 actions. Search jumps to the Planetariums tab |
-| 4 | Latest news → older | 🟡 2 actions. Had to leave for the press page, where "next page" is unnamed | ✅ 1 action, `button "Next news page"` |
-| 5 | Second upcoming event | ✅ 0 actions, readable from the tree | ✅ 1 action, opening the accordion item |
-| 6 | Contact form | 🟡 8 actions. Inputs hidden from the tree (`aria-hidden` wrappers, unlinked labels); filled by CSS selector | ✅ 6 actions, labelled fields in `dialog "Contact ZEISS"` |
-| 7 | Footer → German site | 🟡 2 actions. The trigger is a plain `div`, clicked by its visible text | ✅ 2 actions, `combobox "Select website"` |
-| 8 | Filter by Sustainability | ✅ 1 action, but no pressed state, a 5–10 s animation, and every card named "Access Tile" | ✅ 1 action, `button "Sustainability" [pressed]` with a live result count |
+| #   | Task                     | Original                                                                                                    | Rebuild                                                                    |
+| --- | ------------------------ | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| 1   | Reject cookies           | ✅ 1 action                                                                                                 | ✅ 1 action                                                                |
+| 2   | Divisions → Photography  | 🟡 3 actions. The main navigation has no division list; "Products and solutions" leaves the page            | ✅ 2 actions. The menu lists all 15 divisions and selects the matching tab |
+| 3   | Search "Planetariums"    | ✅ 3 actions, on a separate results page with unnamed pagination                                            | ✅ 3 actions. Search jumps to the Planetariums tab                         |
+| 4   | Latest news → older      | 🟡 2 actions. Had to leave for the press page, where "next page" is unnamed                                 | ✅ 1 action, `button "Next news page"`                                     |
+| 5   | Second upcoming event    | ✅ 0 actions, readable from the tree                                                                        | ✅ 1 action, opening the accordion item                                    |
+| 6   | Contact form             | 🟡 8 actions. Inputs hidden from the tree (`aria-hidden` wrappers, unlinked labels); filled by CSS selector | ✅ 6 actions, labelled fields in `dialog "Contact ZEISS"`                  |
+| 7   | Footer → German site     | 🟡 2 actions. The trigger is a plain `div`, clicked by its visible text                                     | ✅ 2 actions, `combobox "Select website"`                                  |
+| 8   | Filter by Sustainability | ✅ 1 action, but no pressed state, a 5–10 s animation, and every card named "Access Tile"                   | ✅ 1 action, `button "Sustainability" [pressed]` with a live result count  |
 
 ✅ done cleanly · 🟡 partial, or needed a workaround
 

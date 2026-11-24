@@ -14,9 +14,14 @@ function subscribe(listener: () => void) {
 
 function navigate(to: string) {
   const url = new URL(to, window.location.href);
-  if (url.pathname + url.search === window.location.pathname + window.location.search) {
+  if (
+    url.pathname + url.search ===
+    window.location.pathname + window.location.search
+  ) {
     if (url.hash)
-      document.getElementById(url.hash.slice(1))?.scrollIntoView({ behavior: "smooth" });
+      document
+        .getElementById(url.hash.slice(1))
+        ?.scrollIntoView({ behavior: "smooth" });
     return;
   }
   window.history.pushState(null, "", url);
@@ -33,7 +38,11 @@ function useLocation() {
   return { pathname: url.pathname, searchParams: url.searchParams };
 }
 
-function Link({ href = "/", onClick, ...props }: AnchorHTMLAttributes<HTMLAnchorElement>) {
+function Link({
+  href = "/",
+  onClick,
+  ...props
+}: AnchorHTMLAttributes<HTMLAnchorElement>) {
   return (
     <a
       {...props}

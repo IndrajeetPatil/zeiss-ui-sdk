@@ -5,7 +5,10 @@ type Crumb = { label: string; href?: string };
 
 function Breadcrumb({ items }: { items: Crumb[] }) {
   return (
-    <nav aria-label="Breadcrumb" className="breadcrumb container">
+    <nav
+      aria-label="Breadcrumb"
+      className="breadcrumb container"
+    >
       <ol>
         {items.map((item) => (
           <li key={item.label}>
@@ -37,8 +40,15 @@ function PageHero({
   tone?: "dark" | "light";
 }) {
   return (
-    <section className={`page-hero align-${align} tone-on-${tone}`} aria-labelledby="page-title">
-      <img className="cover" src={image} alt="" />
+    <section
+      className={`page-hero align-${align} tone-on-${tone}`}
+      aria-labelledby="page-title"
+    >
+      <img
+        className="cover"
+        src={image}
+        alt=""
+      />
       <div className="container page-hero-copy">
         {eyebrow && <p className="eyebrow">{eyebrow}</p>}
         <h1 id="page-title">{title}</h1>

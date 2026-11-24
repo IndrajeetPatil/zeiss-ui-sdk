@@ -26,7 +26,9 @@ function addToCart(slug: string, quantity: number) {
 }
 
 function setQuantity(slug: string, quantity: number) {
-  emit(lines.map((line) => (line.slug === slug ? { ...line, quantity } : line)));
+  emit(
+    lines.map((line) => (line.slug === slug ? { ...line, quantity } : line)),
+  );
 }
 
 function removeFromCart(slug: string) {
