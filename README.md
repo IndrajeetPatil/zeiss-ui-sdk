@@ -38,9 +38,20 @@ How to read the table:
 - **Page text read** estimates how much of the pages the agent had to take in, as accessibility-snapshot characters ÷ 4.
 - Both agents reached the right cart. The difference is in how much effort it took.
 
+> [!IMPORTANT]
+> **Not all of this gap is due to ui-sdk.** The rebuild is a small mock: it has less content than zeiss.com, keeps the whole journey in one tab on one site, and has no real shop backend. The live site opens new tabs and moves to a shop on another domain, run by a ZEISS licensee, with its own cookie banner. So, row by row:
+>
+> - **Page text read** and **tabs / sites** reflect the rebuild being smaller and on one site, not ui-sdk.
+> - **Actions** and **workarounds** are partly the same effect: the agents' instructions count handling an unexpected tab or banner as a workaround, and zeiss.com has both.
+> - **Failed actions** and the remaining workarounds come closest to what ui-sdk changes. On zeiss.com, these came from buttons that share a name, a menu link that behaves differently depending on when it's clicked, and a panel that ignores Escape.
+>
+> These numbers also come from a single recorded run per site, and the rebuild was built knowing which tasks would be tested.
+
 Both agents were given the exact same instructions and task. You can view the [prompt used for the video](.agents/skills/agent-navigability-comparison/references/video-agent-prompt.md).
 
-The [agent navigability report](docs/agent-navigability.md) has the full comparison. It also covers a separate, written evaluation of the same journey and of eight homepage tasks. Its counts differ from the video's because it was a separate run with different agents (the report explains why). Keep in mind that the rebuild is a smaller mock on a single domain, so not all of its advantage comes from ui-sdk itself.
+The [agent navigability report](docs/agent-navigability.md) has the full comparison. It also covers a separate, written evaluation of the same journey and of eight homepage tasks. Its counts differ from the video's because it was a separate run with different agents (the report explains why).
+
+The report separates what holds up from what doesn't. The genuine gains come from ui-sdk's components themselves: unique, descriptive names, visible state (expanded, pressed, checked, result counts), and controls that behaved consistently in these runs. These would apply to a site of any size. The gains in page size and tab handling come mostly from the rebuild being a small mock.
 
 ## What's in this repository
 

@@ -55,8 +55,29 @@ On the rebuild, every control on the path was found by role and accessible name.
 
 The original is not bad everywhere. Its shop filter, quantity field, and add-to-cart announcements are well built, and on several steps it exposes as much state as the rebuild.
 
+### What is and isn't due to ui-sdk
+
 > [!IMPORTANT]
-> The rebuild is a mock with less content and no backend: the shop has six cameras, the cart lives in the browser, and checkout isn't implemented. It also puts the whole journey on one domain, while the original crosses to a shop run by the ZEISS licensee Valyra. Some of the rebuild's advantage comes from that smaller, single-site surface rather than from ui-sdk itself.
+> The rebuild is a mock with less content and no backend: the shop has six cameras, the cart lives in the browser, and checkout isn't implemented. It also puts the whole journey on one domain, while the original crosses to a shop run by the ZEISS licensee Valyra. A real site has more content and more parties involved, so it would not be as lean as this mock even if it were built on ui-sdk.
+
+**Likely due to ui-sdk's components.** These are properties of the controls themselves, so they don't depend on the site being small:
+
+- names that are unique and include their context, so the agent never had to pick a control by its position;
+- state the agent can read (expanded, pressed, checked, result counts) without taking a screenshot;
+- form fields and selects that are labelled and can be operated from the accessibility tree;
+- controls that behaved consistently in these runs, where the original had a link, a filter toggle, and a panel that did not (see Predictability under [What differs, in general](#what-differs-in-general)).
+
+**Mostly due to the rebuild being a small, single-site mock:**
+
+- smaller snapshots and less page text read, since there is less content;
+- one tab and one domain instead of three tabs and two domains, and with that some of the original's workarounds;
+- fewer steps on some pages, since the mock has fewer links and products.
+
+**Further limits:**
+
+- Each figure comes from one agent per site per run. A repeat run takes a slightly different route and gets different counts, as the gap between the two runs' counts on the original shows.
+- Scores are the agents' own ratings, not measurements.
+- The rebuild was built knowing which tasks would be tested, and with names chosen to match visible text. The original was not built with this test in mind.
 
 ## Video: the buyer journey side by side
 
@@ -208,8 +229,8 @@ Through the tools, the rebuild agent changed state in fewer calls (the whole con
 
 - **Names:** the rebuild's controls carry names that include their context ("Quantity of ZEISS Secacam 3 Wide-Angle", "Remove ZEISS Secacam 3 Wide-Angle from shopping cart"). The original repeats generic names ("Add to shopping cart" ×14, "Access Tile" ×7, "View product" ×2 per card), so an agent falls back to position.
 - **State:** both expose tab selection and checkbox state. The rebuild also exposes pressed toggles, filter results, the current page, and cart counts, which the original leaves out in places.
-- **Predictability:** the rebuild's controls behave the same every time. On the original, a link changes behaviour after scripts load, a filter toggle ignores early clicks, and a panel ignores Escape.
-- **Navigation:** the original opens new tabs without saying so and crosses domains, each with its own cookie banner. The rebuild stays in one tab.
+- **Predictability:** the rebuild's controls behaved consistently in these runs. On the original, a link changes behaviour after scripts load, a filter toggle ignores early clicks, and a panel ignores Escape.
+- **Navigation:** the original opens new tabs without saying so and crosses domains, each with its own cookie banner. The rebuild stays in one tab. This comes from how the site is laid out, not from ui-sdk: the live site could also stay in one tab without changing its components.
 - **Hidden controls:** the original's homepage contact form and footer site switcher can't be operated through the accessibility tree at all. Nothing on the rebuild needed CSS or coordinates to operate, only to read the cart totals.
 
 ## Improvements the rebuild could make
