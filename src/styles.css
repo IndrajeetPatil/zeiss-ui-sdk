@@ -15,7 +15,8 @@
   --z-light-4: #e6ebf0;
   --z-light-5: #dce3e9;
   --z-font:
-    "ZEISS Frutiger Next UI W05", "Frutiger Next", Frutiger, "Helvetica Neue", system-ui, sans-serif;
+    "ZEISS Frutiger Next UI W05", "Frutiger Next", Frutiger, "Helvetica Neue",
+    system-ui, sans-serif;
 
   --ui-background: #fff;
   --ui-foreground: var(--z-headline);
@@ -234,7 +235,10 @@ header {
   flex: 1;
 
   & [data-slot="navigation-menu-trigger"],
-  & [data-slot="navigation-menu-list"] > li > [data-slot="navigation-menu-link"] {
+  &
+    [data-slot="navigation-menu-list"]
+    > li
+    > [data-slot="navigation-menu-link"] {
     height: 6rem;
     padding-inline: 0.75rem;
     font-size: 1rem;
@@ -446,7 +450,11 @@ header {
 
 .tone-photonics {
   background:
-    repeating-linear-gradient(115deg, transparent 0 22px, rgb(125 199 255 / 0.07) 22px 23px),
+    repeating-linear-gradient(
+      115deg,
+      transparent 0 22px,
+      rgb(125 199 255 / 0.07) 22px 23px
+    ),
     radial-gradient(circle at 70% 50%, rgb(0 114 239 / 0.55), transparent 50%),
     linear-gradient(110deg, #0e0f11 30%, #00346c);
 }
@@ -1866,7 +1874,11 @@ footer {
     font-size: 1rem;
   }
 
-  & :is([data-slot="number-input-decrement"], [data-slot="number-input-increment"]) {
+  &
+    :is(
+      [data-slot="number-input-decrement"],
+      [data-slot="number-input-increment"]
+    ) {
     width: 3rem;
     height: 100%;
   }

@@ -45,8 +45,17 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@ui-sdk/react/drawer";
-import { Field, FieldDescription, FieldError, FieldLabel } from "@ui-sdk/react/field";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@ui-sdk/react/hover-card";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from "@ui-sdk/react/field";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@ui-sdk/react/hover-card";
 import { Input } from "@ui-sdk/react/input";
 import {
   NavigationMenu,
@@ -106,7 +115,9 @@ import {
 const NEWS_PER_PAGE = 2;
 
 function scrollToId(id: string) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  document
+    .getElementById(id)
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 const routes: Record<string, string> = {
@@ -115,11 +126,16 @@ const routes: Record<string, string> = {
 };
 
 function Home() {
-  const [division, setDivision] = useState<string | null>(divisionGroups[0].value);
+  const [division, setDivision] = useState<string | null>(
+    divisionGroups[0].value,
+  );
 
   return (
     <>
-      <a className="skip-link" href="#main">
+      <a
+        className="skip-link"
+        href="#main"
+      >
         Skip to content
       </a>
       <CookieDialog site="zeiss" />
@@ -131,7 +147,10 @@ function Home() {
       />
       <main id="main">
         <Hero />
-        <Divisions value={division} onValueChange={setDivision} />
+        <Divisions
+          value={division}
+          onValueChange={setDivision}
+        />
         <Editorial />
         <Portfolio />
         <Newsroom />
@@ -152,10 +171,17 @@ function Header({ onDivision }: { onDivision: (value: string) => void }) {
         </div>
       </div>
       <div className="masthead container">
-        <a href="#top" className="logo" aria-label="ZEISS Group home">
+        <a
+          href="#top"
+          className="logo"
+          aria-label="ZEISS Group home"
+        >
           <ZeissLogo />
         </a>
-        <NavigationMenu aria-label="Main" className="main-nav">
+        <NavigationMenu
+          aria-label="Main"
+          className="main-nav"
+        >
           <NavigationMenuList>
             <NavigationMenuItem value="about">
               <NavigationMenuTrigger>About us</NavigationMenuTrigger>
@@ -166,11 +192,16 @@ function Header({ onDivision }: { onDivision: (value: string) => void }) {
                     ["History at a glance", "Since 1846 in Jena"],
                     ["Carl Zeiss Foundation", "Our sole owner"],
                     ["Sustainability at ZEISS", "Our responsibility"],
-                    ["Innovation at ZEISS", "Shaping the future with technology"],
+                    [
+                      "Innovation at ZEISS",
+                      "Shaping the future with technology",
+                    ],
                     ["Newsroom", "Press releases and media"],
                   ].map(([title, text]) => (
                     <li key={title}>
-                      <NavigationMenuLink href={`#${title.toLowerCase().replaceAll(" ", "-")}`}>
+                      <NavigationMenuLink
+                        href={`#${title.toLowerCase().replaceAll(" ", "-")}`}
+                      >
                         <span>{title}</span>
                         <span>{text}</span>
                       </NavigationMenuLink>
@@ -180,7 +211,9 @@ function Header({ onDivision }: { onDivision: (value: string) => void }) {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem value="products">
-              <NavigationMenuTrigger>Products and solutions</NavigationMenuTrigger>
+              <NavigationMenuTrigger>
+                Products and solutions
+              </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="mega">
                   {divisionGroups.flatMap((group) =>
@@ -208,7 +241,10 @@ function Header({ onDivision }: { onDivision: (value: string) => void }) {
           <NavigationMenuViewport />
         </NavigationMenu>
         <div className="masthead-tools">
-          <a href="#contact" className="plain-link">
+          <a
+            href="#contact"
+            className="plain-link"
+          >
             Contact
           </a>
           <SiteSearch onDivision={onDivision} />
@@ -228,9 +264,19 @@ function SiteSearch({ onDivision }: { onDivision: (value: string) => void }) {
   ];
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger shortcut="mod+k" aria-label="Search on site" className="icon-button">
-        <Icon name="search" size={20} />
+    <Dialog
+      open={open}
+      onOpenChange={setOpen}
+    >
+      <DialogTrigger
+        shortcut="mod+k"
+        aria-label="Search on site"
+        className="icon-button"
+      >
+        <Icon
+          name="search"
+          size={20}
+        />
       </DialogTrigger>
       <DialogBackdrop />
       <DialogContent className="search-dialog">
@@ -244,8 +290,14 @@ function SiteSearch({ onDivision }: { onDivision: (value: string) => void }) {
           }}
         >
           <div className="search-row">
-            <Icon name="search" size={20} />
-            <CommandInput aria-label="Search ZEISS" placeholder="Search divisions, news, events…" />
+            <Icon
+              name="search"
+              size={20}
+            />
+            <CommandInput
+              aria-label="Search ZEISS"
+              placeholder="Search divisions, news, events…"
+            />
           </div>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandList>
@@ -266,7 +318,10 @@ function SiteSearch({ onDivision }: { onDivision: (value: string) => void }) {
             <CommandGroup>
               <CommandGroupLabel>Pages</CommandGroupLabel>
               {pages.map((page) => (
-                <CommandItem key={page.value} value={`page:${page.target}`}>
+                <CommandItem
+                  key={page.value}
+                  value={`page:${page.target}`}
+                >
                   {page.label}
                 </CommandItem>
               ))}
@@ -281,16 +336,32 @@ function SiteSearch({ onDivision }: { onDivision: (value: string) => void }) {
 
 function Hero() {
   return (
-    <Carousel aria-label="Highlights" className="hero" loop defaultPlaying interval={7000}>
+    <Carousel
+      aria-label="Highlights"
+      className="hero"
+      loop
+      defaultPlaying
+      interval={7000}
+    >
       <CarouselViewport>
         <CarouselContent>
           {heroSlides.map((slide) => (
-            <CarouselItem key={slide.id} className={`hero-slide tone-${slide.tone}`}>
-              <img className="cover" src={heroImages[slide.id]} alt="" />
+            <CarouselItem
+              key={slide.id}
+              className={`hero-slide tone-${slide.tone}`}
+            >
+              <img
+                className="cover"
+                src={heroImages[slide.id]}
+                alt=""
+              />
               <div className="container hero-copy">
                 <p className="eyebrow">{slide.eyebrow}</p>
                 <h1>{slide.title}</h1>
-                <Button data-variant="solid" render={<a href={`#${slide.id}`} />}>
+                <Button
+                  data-variant="solid"
+                  render={<a href={`#${slide.id}`} />}
+                >
                   {slide.cta}
                 </Button>
               </div>
@@ -302,7 +373,11 @@ function Hero() {
         <CarouselPrevious aria-label="Previous highlight" />
         <CarouselIndicatorGroup aria-label="Choose a highlight">
           {heroSlides.map((slide, index) => (
-            <CarouselIndicator key={slide.id} page={index + 1} aria-label={slide.title} />
+            <CarouselIndicator
+              key={slide.id}
+              page={index + 1}
+              aria-label={slide.title}
+            />
           ))}
         </CarouselIndicatorGroup>
         <CarouselNext aria-label="Next highlight" />
@@ -322,22 +397,41 @@ function Divisions({
   onValueChange: (value: string | null) => void;
 }) {
   return (
-    <section id="divisions" className="band band-muted" aria-labelledby="divisions-title">
+    <section
+      id="divisions"
+      className="band band-muted"
+      aria-labelledby="divisions-title"
+    >
       <div className="container">
-        <h2 id="divisions-title" className="visually-hidden">
+        <h2
+          id="divisions-title"
+          className="visually-hidden"
+        >
           ZEISS divisions
         </h2>
-        <Tabs value={value} onValueChange={onValueChange} className="division-tabs">
+        <Tabs
+          value={value}
+          onValueChange={onValueChange}
+          className="division-tabs"
+        >
           <TabsList aria-label="ZEISS divisions">
             {divisionGroups.map((group) => (
-              <TabsTab key={group.value} value={group.value}>
+              <TabsTab
+                key={group.value}
+                value={group.value}
+              >
                 <span className="tile-icon">
-                  <Icon name={group.icon} size={28} />
+                  <Icon
+                    name={group.icon}
+                    size={28}
+                  />
                 </span>
                 <span className="tile-names">
                   {group.divisions.map((item, index) => (
                     <span key={item.name}>
-                      {index > 0 && <span className="visually-hidden">and </span>}
+                      {index > 0 && (
+                        <span className="visually-hidden">and </span>
+                      )}
                       {item.name}
                       {index < group.divisions.length - 1 && " "}
                     </span>
@@ -347,15 +441,25 @@ function Divisions({
             ))}
           </TabsList>
           {divisionGroups.map((group) => (
-            <TabsPanel key={group.value} value={group.value} className="division-panel">
+            <TabsPanel
+              key={group.value}
+              value={group.value}
+              className="division-panel"
+            >
               <h3 className="section-title">{group.headline}</h3>
               {group.divisions.map((item) => (
-                <article key={item.name} className="division">
+                <article
+                  key={item.name}
+                  className="division"
+                >
                   <div>
                     <p className="eyebrow dark">{item.name}</p>
                     <p>{item.teaser}</p>
                     {routes[item.name] && (
-                      <Button data-variant="outline" render={<Link href={routes[item.name]} />}>
+                      <Button
+                        data-variant="outline"
+                        render={<Link href={routes[item.name]} />}
+                      >
                         {item.name}
                       </Button>
                     )}
@@ -364,10 +468,20 @@ function Divisions({
                     <ul className="card-row">
                       {item.cards.map((card, index) => (
                         <li key={card}>
-                          <Link href={routes[card] ?? `#${group.value}`} className="link-card">
-                            <img src={cardImages[item.name]?.[index]} alt="" loading="lazy" />
+                          <Link
+                            href={routes[card] ?? `#${group.value}`}
+                            className="link-card"
+                          >
+                            <img
+                              src={cardImages[item.name]?.[index]}
+                              alt=""
+                              loading="lazy"
+                            />
                             <span>{card}</span>
-                            <Icon name="arrow" size={20} />
+                            <Icon
+                              name="arrow"
+                              size={20}
+                            />
                           </Link>
                         </li>
                       ))}
@@ -386,16 +500,29 @@ function Divisions({
 function Editorial() {
   const [selected, setSelected] = useState<Topic[]>([]);
   const shown =
-    selected.length === 0 ? stories : stories.filter((story) => selected.includes(story.topic));
+    selected.length === 0
+      ? stories
+      : stories.filter((story) => selected.includes(story.topic));
 
   return (
-    <section className="band" aria-labelledby="focus-topics">
+    <section
+      className="band"
+      aria-labelledby="focus-topics"
+    >
       <div className="container">
         <ul className="promo-grid">
           {promos.map((promo) => (
             <li key={promo.id}>
-              <a href={`#${promo.id}`} className={`image-card tone-${promo.id}`}>
-                <img className="cover" src={promoImages[promo.id]} alt="" loading="lazy" />
+              <a
+                href={`#${promo.id}`}
+                className={`image-card tone-${promo.id}`}
+              >
+                <img
+                  className="cover"
+                  src={promoImages[promo.id]}
+                  alt=""
+                  loading="lazy"
+                />
                 <span className="kicker">{promo.kicker}</span>
                 <span className="card-title">{promo.title}</span>
               </a>
@@ -403,7 +530,10 @@ function Editorial() {
           ))}
         </ul>
 
-        <h2 id="focus-topics" className="section-title center">
+        <h2
+          id="focus-topics"
+          className="section-title center"
+        >
           Focus topics
         </h2>
         <ToggleGroup
@@ -414,19 +544,33 @@ function Editorial() {
           onValueChange={(value) => setSelected(value as Topic[])}
         >
           {topics.map((topic) => (
-            <Toggle key={topic.value} value={topic.value}>
+            <Toggle
+              key={topic.value}
+              value={topic.value}
+            >
               {topic.label}
             </Toggle>
           ))}
         </ToggleGroup>
-        <p className="visually-hidden" aria-live="polite">
+        <p
+          className="visually-hidden"
+          aria-live="polite"
+        >
           {shown.length} stories shown
         </p>
         <ul className="story-grid">
           {shown.map((story) => (
             <li key={story.id}>
-              <a href={`#${story.id}`} className={`image-card tone-${story.topic}`}>
-                <img className="cover" src={storyImages[story.id]} alt="" loading="lazy" />
+              <a
+                href={`#${story.id}`}
+                className={`image-card tone-${story.topic}`}
+              >
+                <img
+                  className="cover"
+                  src={storyImages[story.id]}
+                  alt=""
+                  loading="lazy"
+                />
                 <span className="kicker">
                   {topics.find((topic) => topic.value === story.topic)?.label}
                 </span>
@@ -436,7 +580,10 @@ function Editorial() {
           ))}
         </ul>
         <div className="center">
-          <Button data-variant="solid" render={<a href="#stories" />}>
+          <Button
+            data-variant="solid"
+            render={<a href="#stories" />}
+          >
             Discover more
           </Button>
         </div>
@@ -447,16 +594,34 @@ function Editorial() {
 
 function Portfolio() {
   return (
-    <section className="band band-muted portfolio" aria-labelledby="portfolio-title">
-      <img className="portfolio-image" src={portfolioImage} alt="" loading="lazy" />
+    <section
+      className="band band-muted portfolio"
+      aria-labelledby="portfolio-title"
+    >
+      <img
+        className="portfolio-image"
+        src={portfolioImage}
+        alt=""
+        loading="lazy"
+      />
       <div className="container portfolio-inner">
         <div>
-          <h2 id="portfolio-title" className="section-title">
+          <h2
+            id="portfolio-title"
+            className="section-title"
+          >
             Our products and solutions
           </h2>
           <p className="subtitle">Discover our entire portfolio</p>
-          <a href="#divisions" className="arrow-link">
-            Go to overview <Icon name="arrow" size={18} />
+          <a
+            href="#divisions"
+            className="arrow-link"
+          >
+            Go to overview{" "}
+            <Icon
+              name="arrow"
+              size={18}
+            />
           </a>
         </div>
       </div>
@@ -469,16 +634,31 @@ function Newsroom() {
   const items = news.slice((page - 1) * NEWS_PER_PAGE, page * NEWS_PER_PAGE);
 
   return (
-    <section id="newsroom" className="band" aria-labelledby="newsroom-title">
+    <section
+      id="newsroom"
+      className="band"
+      aria-labelledby="newsroom-title"
+    >
       <div className="container">
-        <h2 id="newsroom-title" className="section-title center">
+        <h2
+          id="newsroom-title"
+          className="section-title center"
+        >
           Newsroom
         </h2>
         <p className="center muted">Current news from the ZEISS Group</p>
         <div className="news-grid">
           {items.map((item) => (
-            <article key={item.id} className="news-card">
-              <img className="news-image" src={newsImages[item.id]} alt="" loading="lazy" />
+            <article
+              key={item.id}
+              className="news-card"
+            >
+              <img
+                className="news-image"
+                src={newsImages[item.id]}
+                alt=""
+                loading="lazy"
+              />
               <p className="meta">{item.date}</p>
               <h3>
                 <a href={`#${item.id}`}>{item.title}</a>
@@ -488,9 +668,18 @@ function Newsroom() {
           ))}
           <aside className="news-aside">
             <h3>News from the world of ZEISS</h3>
-            <p className="muted">Current news and information from the ZEISS Group.</p>
-            <a href="#press" className="arrow-link">
-              All press releases <Icon name="arrow" size={18} />
+            <p className="muted">
+              Current news and information from the ZEISS Group.
+            </p>
+            <a
+              href="#press"
+              className="arrow-link"
+            >
+              All press releases{" "}
+              <Icon
+                name="arrow"
+                size={18}
+              />
             </a>
           </aside>
         </div>
@@ -528,10 +717,19 @@ function Newsroom() {
 
 function Events() {
   return (
-    <section id="events" className="band events" aria-labelledby="events-title">
+    <section
+      id="events"
+      className="band events"
+      aria-labelledby="events-title"
+    >
       <div className="container events-grid">
         <div className="events-image">
-          <img className="cover" src={eventsImage} alt="" loading="lazy" />
+          <img
+            className="cover"
+            src={eventsImage}
+            alt=""
+            loading="lazy"
+          />
           <h2 id="events-title">Events</h2>
         </div>
         <div className="events-side">
@@ -543,9 +741,15 @@ function Events() {
           </div>
           <div className="upcoming">
             <h3>Upcoming events</h3>
-            <Accordion aria-label="Upcoming events" defaultValue={[events[0].id]}>
+            <Accordion
+              aria-label="Upcoming events"
+              defaultValue={[events[0].id]}
+            >
               {events.map((event) => (
-                <AccordionItem key={event.id} value={event.id}>
+                <AccordionItem
+                  key={event.id}
+                  value={event.id}
+                >
                   <AccordionHeader render={<h4 />}>
                     <AccordionTrigger>{event.name}</AccordionTrigger>
                   </AccordionHeader>
@@ -554,8 +758,15 @@ function Events() {
                       {event.date} · {event.place}
                     </p>
                     <HoverCard>
-                      <HoverCardTrigger href={`#event-${event.id}`} className="arrow-link">
-                        Details for {event.name} <Icon name="external" size={16} />
+                      <HoverCardTrigger
+                        href={`#event-${event.id}`}
+                        className="arrow-link"
+                      >
+                        Details for {event.name}{" "}
+                        <Icon
+                          name="external"
+                          size={16}
+                        />
                       </HoverCardTrigger>
                       <HoverCardContent className="event-card">
                         <strong>{event.name}</strong>
@@ -566,7 +777,10 @@ function Events() {
                 </AccordionItem>
               ))}
             </Accordion>
-            <Button data-variant="outline" render={<a href="#all-events" />}>
+            <Button
+              data-variant="outline"
+              render={<a href="#all-events" />}
+            >
               See all events
             </Button>
           </div>
@@ -578,19 +792,39 @@ function Events() {
 
 function ContactInfo() {
   return (
-    <section id="contact" className="band" aria-labelledby="contact-title">
+    <section
+      id="contact"
+      className="band"
+      aria-labelledby="contact-title"
+    >
       <div className="container">
-        <h2 id="contact-title" className="section-title center">
+        <h2
+          id="contact-title"
+          className="section-title center"
+        >
           Contact & information
         </h2>
         <div className="contact-grid">
           <ContactDrawer />
-          <a href="#locations" className="contact-tile">
-            <Icon name="globe" size={36} />
+          <a
+            href="#locations"
+            className="contact-tile"
+          >
+            <Icon
+              name="globe"
+              size={36}
+            />
             <span>ZEISS locations</span>
           </a>
-          <a href="#careers" id="careers" className="contact-tile">
-            <Icon name="handshake" size={36} />
+          <a
+            href="#careers"
+            id="careers"
+            className="contact-tile"
+          >
+            <Icon
+              name="handshake"
+              size={36}
+            />
             <span>
               We are hiring
               <small>Become a part of the ZEISS team</small>
@@ -606,9 +840,16 @@ function ContactDrawer() {
   const [open, setOpen] = useState(false);
 
   return (
-    <Drawer side="right" open={open} onOpenChange={setOpen}>
+    <Drawer
+      side="right"
+      open={open}
+      onOpenChange={setOpen}
+    >
       <DrawerTrigger className="contact-tile">
-        <Icon name="people" size={36} />
+        <Icon
+          name="people"
+          size={36}
+        />
         <span>Find the right contact person</span>
       </DrawerTrigger>
       <DrawerBackdrop />
@@ -630,23 +871,37 @@ function ContactDrawer() {
         >
           <Field name="name">
             <FieldLabel>Full name</FieldLabel>
-            <Input autoComplete="name" required />
+            <Input
+              autoComplete="name"
+              required
+            />
             <FieldError />
           </Field>
           <Field name="email">
             <FieldLabel>Email address</FieldLabel>
-            <Input type="email" autoComplete="email" required />
+            <Input
+              type="email"
+              autoComplete="email"
+              required
+            />
             <FieldError />
           </Field>
           <Field>
             <FieldLabel>Area of interest</FieldLabel>
-            <Select name="area" defaultValue="ZEISS Group" required>
+            <Select
+              name="area"
+              defaultValue="ZEISS Group"
+              required
+            >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 {areas.map((area) => (
-                  <SelectItem key={area} value={area}>
+                  <SelectItem
+                    key={area}
+                    value={area}
+                  >
                     {area}
                   </SelectItem>
                 ))}
@@ -656,18 +911,26 @@ function ContactDrawer() {
           <Field name="message">
             <FieldLabel>Your message</FieldLabel>
             <Textarea required />
-            <FieldDescription>Please don't include confidential patient data.</FieldDescription>
+            <FieldDescription>
+              Please don't include confidential patient data.
+            </FieldDescription>
             <FieldError />
           </Field>
           <Field className="row-field">
-            <Checkbox name="privacy" required>
+            <Checkbox
+              name="privacy"
+              required
+            >
               <CheckboxIndicator />
             </Checkbox>
             <FieldLabel>I have read the privacy notice</FieldLabel>
           </Field>
           <div className="dialog-actions">
             <DrawerClose data-variant="outline">Cancel</DrawerClose>
-            <Button type="submit" data-variant="solid">
+            <Button
+              type="submit"
+              data-variant="solid"
+            >
               Send message
             </Button>
           </div>
@@ -690,7 +953,13 @@ function Footer({ onCookiePreferences }: { onCookiePreferences: () => void }) {
     },
     {
       title: "About ZEISS",
-      links: ["About", "Career", "Newsroom", "Compliance", "Accessibility statement"],
+      links: [
+        "About",
+        "Career",
+        "Newsroom",
+        "Compliance",
+        "Accessibility statement",
+      ],
     },
   ];
   const social = ["Facebook", "Instagram", "LinkedIn", "YouTube", "X"];
@@ -698,8 +967,15 @@ function Footer({ onCookiePreferences }: { onCookiePreferences: () => void }) {
   return (
     <footer>
       <div className="container back-to-top">
-        <a href="#top" className="arrow-link">
-          Back to top <Icon name="up" size={18} />
+        <a
+          href="#top"
+          className="arrow-link"
+        >
+          Back to top{" "}
+          <Icon
+            name="up"
+            size={18}
+          />
         </a>
       </div>
       <div className="related">
@@ -711,12 +987,17 @@ function Footer({ onCookiePreferences }: { onCookiePreferences: () => void }) {
       </div>
       <div className="container footer-main">
         {columns.map((column) => (
-          <nav key={column.title} aria-label={column.title}>
+          <nav
+            key={column.title}
+            aria-label={column.title}
+          >
             <h2>{column.title}</h2>
             <ul>
               {column.links.map((link) => (
                 <li key={link}>
-                  <a href={`#${link.toLowerCase().replaceAll(" ", "-")}`}>{link}</a>
+                  <a href={`#${link.toLowerCase().replaceAll(" ", "-")}`}>
+                    {link}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -728,7 +1009,9 @@ function Footer({ onCookiePreferences }: { onCookiePreferences: () => void }) {
             {social.map((name) => (
               <li key={name}>
                 <Tooltip>
-                  <TooltipTrigger render={<a href={`#${name.toLowerCase()}`} />}>
+                  <TooltipTrigger
+                    render={<a href={`#${name.toLowerCase()}`} />}
+                  >
                     {name}
                   </TooltipTrigger>
                   <TooltipContent>Opens ZEISS on {name}</TooltipContent>
@@ -746,7 +1029,10 @@ function Footer({ onCookiePreferences }: { onCookiePreferences: () => void }) {
               </SelectTrigger>
               <SelectContent>
                 {areas.map((area) => (
-                  <SelectItem key={area} value={area}>
+                  <SelectItem
+                    key={area}
+                    value={area}
+                  >
                     {area}
                   </SelectItem>
                 ))}
@@ -761,7 +1047,10 @@ function Footer({ onCookiePreferences }: { onCookiePreferences: () => void }) {
               </SelectTrigger>
               <SelectContent>
                 {websites.map((site) => (
-                  <SelectItem key={site} value={site}>
+                  <SelectItem
+                    key={site}
+                    value={site}
+                  >
                     {site}
                   </SelectItem>
                 ))}
@@ -772,18 +1061,25 @@ function Footer({ onCookiePreferences }: { onCookiePreferences: () => void }) {
       </div>
       <div className="legal">
         <div className="container">
-          {["Contact", "Publisher", "Legal Notice", "Privacy Notice", "Cookie Notice"].map(
-            (link) => (
-              <a
-                key={link}
-                href={`#${link.toLowerCase().replaceAll(" ", "-")}`}
-                id={link === "Privacy Notice" ? "privacy" : undefined}
-              >
-                {link}
-              </a>
-            ),
-          )}
-          <Button className="legal-button" onClick={onCookiePreferences}>
+          {[
+            "Contact",
+            "Publisher",
+            "Legal Notice",
+            "Privacy Notice",
+            "Cookie Notice",
+          ].map((link) => (
+            <a
+              key={link}
+              href={`#${link.toLowerCase().replaceAll(" ", "-")}`}
+              id={link === "Privacy Notice" ? "privacy" : undefined}
+            >
+              {link}
+            </a>
+          ))}
+          <Button
+            className="legal-button"
+            onClick={onCookiePreferences}
+          >
             Cookie Preferences
           </Button>
         </div>

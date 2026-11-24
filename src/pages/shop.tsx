@@ -18,7 +18,11 @@ import {
   CarouselPrevious,
   CarouselViewport,
 } from "@ui-sdk/react/carousel";
-import { Checkbox, CheckboxGroup, CheckboxIndicator } from "@ui-sdk/react/checkbox";
+import {
+  Checkbox,
+  CheckboxGroup,
+  CheckboxIndicator,
+} from "@ui-sdk/react/checkbox";
 import {
   Drawer,
   DrawerBackdrop,
@@ -90,7 +94,9 @@ const CAMERAS = "/shop/cameras";
 const PRICE_MAX = 250;
 
 type CartNotice = { open: boolean; message: string };
-const ShopContext = createContext<(slug: string, quantity: number) => void>(() => {});
+const ShopContext = createContext<(slug: string, quantity: number) => void>(
+  () => {},
+);
 
 function cameraBySlug(slug: string) {
   return cameras.find((camera) => camera.slug === slug);
@@ -98,7 +104,10 @@ function cameraBySlug(slug: string) {
 
 function ShopLayout({ children }: { children: ReactNode }) {
   const lines = useCart();
-  const [notice, setNotice] = useState<CartNotice>({ open: false, message: "" });
+  const [notice, setNotice] = useState<CartNotice>({
+    open: false,
+    message: "",
+  });
   const itemCount = lines.length;
 
   const add = (slug: string, quantity: number) => {
@@ -111,11 +120,17 @@ function ShopLayout({ children }: { children: ReactNode }) {
 
   return (
     <ShopContext value={add}>
-      <a className="skip-link" href="#main">
+      <a
+        className="skip-link"
+        href="#main"
+      >
         Skip to content
       </a>
       <CookieDialog site="shop" />
-      <header id="top" className="shop-header">
+      <header
+        id="top"
+        className="shop-header"
+      >
         <div className="topbar shop-topbar">
           <div className="container shop-topbar-inner">
             <strong>Hunting &amp; Nature</strong>
@@ -144,10 +159,17 @@ function ShopLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
         <div className="masthead container">
-          <Link href={CAMERAS} className="logo" aria-label="ZEISS Hunting & Nature shop home">
+          <Link
+            href={CAMERAS}
+            className="logo"
+            aria-label="ZEISS Hunting & Nature shop home"
+          >
             <ZeissLogo />
           </Link>
-          <NavigationMenu aria-label="Shop" className="main-nav">
+          <NavigationMenu
+            aria-label="Shop"
+            className="main-nav"
+          >
             <NavigationMenuList>
               <NavigationMenuItem value="shop">
                 <NavigationMenuTrigger>Shop</NavigationMenuTrigger>
@@ -170,12 +192,20 @@ function ShopLayout({ children }: { children: ReactNode }) {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem value="subscriptions">
-                <NavigationMenuTrigger>Subscriptions &amp; Prepaid Credits</NavigationMenuTrigger>
+                <NavigationMenuTrigger>
+                  Subscriptions &amp; Prepaid Credits
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul>
-                    {["Overview", "Subscription Features", "Prepaid Credits"].map((label) => (
+                    {[
+                      "Overview",
+                      "Subscription Features",
+                      "Prepaid Credits",
+                    ].map((label) => (
                       <li key={label}>
-                        <NavigationMenuLink href={`#${label.toLowerCase().replaceAll(" ", "-")}`}>
+                        <NavigationMenuLink
+                          href={`#${label.toLowerCase().replaceAll(" ", "-")}`}
+                        >
                           <span>{label}</span>
                         </NavigationMenuLink>
                       </li>
@@ -184,17 +214,28 @@ function ShopLayout({ children }: { children: ReactNode }) {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="#help">Help &amp; Service</NavigationMenuLink>
+                <NavigationMenuLink href="#help">
+                  Help &amp; Service
+                </NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
             <NavigationMenuViewport />
           </NavigationMenu>
           <div className="masthead-tools">
-            <a href="#account" className="plain-link">
+            <a
+              href="#account"
+              className="plain-link"
+            >
               Account
             </a>
-            <Link href={CART} className="cart-link">
-              <Icon name="cart" size={22} />
+            <Link
+              href={CART}
+              className="cart-link"
+            >
+              <Icon
+                name="cart"
+                size={22}
+              />
               <span>Shopping cart</span>
               <span
                 className="cart-badge"
@@ -219,14 +260,18 @@ function ShopLayout({ children }: { children: ReactNode }) {
             <ul>
               {["Shipping & payment", "Returns", "FAQ"].map((label) => (
                 <li key={label}>
-                  <a href={`#${label.toLowerCase().replaceAll(" ", "-")}`}>{label}</a>
+                  <a href={`#${label.toLowerCase().replaceAll(" ", "-")}`}>
+                    {label}
+                  </a>
                 </li>
               ))}
             </ul>
           </nav>
           <div>
             <h2>Service Information</h2>
-            <p>Upon receipt of payment Mon.–Fri. before 3pm dispatched same day.</p>
+            <p>
+              Upon receipt of payment Mon.–Fri. before 3pm dispatched same day.
+            </p>
           </div>
         </div>
         <div className="legal">
@@ -238,11 +283,17 @@ function ShopLayout({ children }: { children: ReactNode }) {
               "Imprint",
               "Right of Withdrawal",
             ].map((label) => (
-              <a key={label} href={`#${label.toLowerCase().replaceAll(" ", "-")}`}>
+              <a
+                key={label}
+                href={`#${label.toLowerCase().replaceAll(" ", "-")}`}
+              >
                 {label}
               </a>
             ))}
-            <Button className="legal-button" onClick={() => openCookieSettings("shop")}>
+            <Button
+              className="legal-button"
+              onClick={() => openCookieSettings("shop")}
+            >
               Tracking Preferences
             </Button>
           </div>
@@ -267,13 +318,21 @@ function useCartLines() {
   const lines = useCart();
   const items = lines.flatMap((line) => {
     const camera = cameraBySlug(line.slug);
-    return camera ? [{ ...line, camera, subtotal: camera.price * line.quantity }] : [];
+    return camera
+      ? [{ ...line, camera, subtotal: camera.price * line.quantity }]
+      : [];
   });
   const total = items.reduce((sum, item) => sum + item.subtotal, 0);
   return { items, total };
 }
 
-function QuantityStepper({ camera, quantity }: { camera: Camera; quantity: number }) {
+function QuantityStepper({
+  camera,
+  quantity,
+}: {
+  camera: Camera;
+  quantity: number;
+}) {
   return (
     <NumberInput
       value={quantity}
@@ -284,9 +343,13 @@ function QuantityStepper({ camera, quantity }: { camera: Camera; quantity: numbe
       }}
     >
       <NumberInputGroup className="stepper">
-        <NumberInputDecrement aria-label={`Decrease quantity of ${camera.name}`} />
+        <NumberInputDecrement
+          aria-label={`Decrease quantity of ${camera.name}`}
+        />
         <NumberInputControl aria-label={`Quantity of ${camera.name}`} />
-        <NumberInputIncrement aria-label={`Increase quantity of ${camera.name}`} />
+        <NumberInputIncrement
+          aria-label={`Increase quantity of ${camera.name}`}
+        />
       </NumberInputGroup>
     </NumberInput>
   );
@@ -298,14 +361,19 @@ function PromoCode() {
       className="promo"
       onSubmit={(event) => {
         event.preventDefault();
-        toast("Promo code not valid", { description: "Please check the code and try again." });
+        toast("Promo code not valid", {
+          description: "Please check the code and try again.",
+        });
       }}
     >
       <Field name="code">
         <FieldLabel>Promo code</FieldLabel>
         <div className="promo-row">
           <Input placeholder="Enter promo code…" />
-          <Button type="submit" data-variant="outline">
+          <Button
+            type="submit"
+            data-variant="outline"
+          >
             Apply promo code
           </Button>
         </div>
@@ -337,7 +405,11 @@ function CartDrawer({
   const { items, total } = useCartLines();
 
   return (
-    <Drawer side="right" open={notice.open} onOpenChange={onOpenChange}>
+    <Drawer
+      side="right"
+      open={notice.open}
+      onOpenChange={onOpenChange}
+    >
       <DrawerBackdrop />
       <DrawerContent className="cart-drawer">
         <DrawerClose data-variant="outline">Continue shopping</DrawerClose>
@@ -348,20 +420,35 @@ function CartDrawer({
           </span>
         </div>
         {notice.message && (
-          <p className="success" role="status">
+          <p
+            className="success"
+            role="status"
+          >
             {notice.message}
           </p>
         )}
         <ul className="drawer-lines">
           {items.map(({ camera, quantity, subtotal }) => (
-            <li key={camera.slug} className="drawer-line">
-              <img src={camera.image} alt="" />
+            <li
+              key={camera.slug}
+              className="drawer-line"
+            >
+              <img
+                src={camera.image}
+                alt=""
+              />
               <div>
-                <Link href={`${CAMERAS}/${camera.slug}`} onClick={() => onOpenChange(false)}>
+                <Link
+                  href={`${CAMERAS}/${camera.slug}`}
+                  onClick={() => onOpenChange(false)}
+                >
                   {camera.name}
                 </Link>
                 <p className="meta">Product number: {camera.number}</p>
-                <QuantityStepper camera={camera} quantity={quantity} />
+                <QuantityStepper
+                  camera={camera}
+                  quantity={quantity}
+                />
               </div>
               <div className="line-price">
                 <strong>{formatPrice(subtotal)}</strong>
@@ -371,7 +458,10 @@ function CartDrawer({
                   aria-label={`Remove ${camera.name} from shopping cart`}
                   onClick={() => removeFromCart(camera.slug)}
                 >
-                  <Icon name="close" size={16} />
+                  <Icon
+                    name="close"
+                    size={16}
+                  />
                 </Button>
               </div>
             </li>
@@ -383,7 +473,11 @@ function CartDrawer({
         <p className="meta">* Prices incl. VAT plus shipping costs</p>
         <PromoCode />
         <CheckoutButton />
-        <Link href={CART} className="arrow-link center-link" onClick={() => onOpenChange(false)}>
+        <Link
+          href={CART}
+          className="arrow-link center-link"
+          onClick={() => onOpenChange(false)}
+        >
           Display shopping cart
         </Link>
       </DrawerContent>
@@ -423,12 +517,19 @@ const filterGroups: {
   },
 ];
 
-function matches(camera: Camera, filters: Record<FilterKey, string[]>, price: number[]) {
+function matches(
+  camera: Camera,
+  filters: Record<FilterKey, string[]>,
+  price: number[],
+) {
   const yesNo = (flag: boolean) => (flag ? "yes" : "no");
   return (
-    (filters.fov.length === 0 || filters.fov.includes(String(camera.fieldOfView))) &&
-    (filters.display.length === 0 || filters.display.includes(yesNo(camera.frontDisplay))) &&
-    (filters.battery.length === 0 || filters.battery.includes(yesNo(camera.removableBattery))) &&
+    (filters.fov.length === 0 ||
+      filters.fov.includes(String(camera.fieldOfView))) &&
+    (filters.display.length === 0 ||
+      filters.display.includes(yesNo(camera.frontDisplay))) &&
+    (filters.battery.length === 0 ||
+      filters.battery.includes(yesNo(camera.removableBattery))) &&
     camera.price >= price[0] &&
     camera.price <= price[1]
   );
@@ -446,14 +547,19 @@ function ShopListingContent() {
 
   const shown = cameras
     .filter((camera) => matches(camera, filters, price))
-    .sort((a, b) => (order === "price-desc" ? b.price - a.price : a.price - b.price));
+    .sort((a, b) =>
+      order === "price-desc" ? b.price - a.price : a.price - b.price,
+    );
   const chips = filterGroups.flatMap((group) =>
     group.options
       .filter((option) => filters[group.key].includes(option.value))
       .map((option) => ({
         group,
         option,
-        label: group.key === "fov" ? option.label : `${group.legend}: ${option.label}`,
+        label:
+          group.key === "fov"
+            ? option.label
+            : `${group.legend}: ${option.label}`,
       })),
   );
   const priceActive = price[0] > 0 || price[1] < PRICE_MAX;
@@ -473,8 +579,15 @@ function ShopListingContent() {
         ]}
       />
       <div className="container">
-        <section className="shop-hero" aria-labelledby="page-title">
-          <img className="cover" src={cameras[2].image.replace("280x280", "800x800")} alt="" />
+        <section
+          className="shop-hero"
+          aria-labelledby="page-title"
+        >
+          <img
+            className="cover"
+            src={cameras[2].image.replace("280x280", "800x800")}
+            alt=""
+          />
           <div>
             <h1 id="page-title">Trail Cameras</h1>
             <p>Discover Now</p>
@@ -504,11 +617,17 @@ function ShopListingContent() {
                   <CheckboxGroup
                     value={filters[group.key]}
                     onValueChange={(value) =>
-                      setFilters((current) => ({ ...current, [group.key]: value as string[] }))
+                      setFilters((current) => ({
+                        ...current,
+                        [group.key]: value as string[],
+                      }))
                     }
                   >
                     {group.options.map((option) => (
-                      <label key={option.value} className="check-option">
+                      <label
+                        key={option.value}
+                        className="check-option"
+                      >
                         <Checkbox value={option.value}>
                           <CheckboxIndicator />
                         </Checkbox>
@@ -525,7 +644,11 @@ function ShopListingContent() {
                   max={PRICE_MAX}
                   step={10}
                   onValueChange={(value) => setPrice(value as number[])}
-                  format={{ style: "currency", currency: "EUR", maximumFractionDigits: 0 }}
+                  format={{
+                    style: "currency",
+                    currency: "EUR",
+                    maximumFractionDigits: 0,
+                  }}
                   locale="en-GB"
                 >
                   <div className="slider-head">
@@ -535,18 +658,29 @@ function ShopListingContent() {
                   <SliderControl>
                     <SliderTrack>
                       <SliderIndicator />
-                      <SliderThumb index={0} aria-label="Minimum price" />
-                      <SliderThumb index={1} aria-label="Maximum price" />
+                      <SliderThumb
+                        index={0}
+                        aria-label="Minimum price"
+                      />
+                      <SliderThumb
+                        index={1}
+                        aria-label="Maximum price"
+                      />
                     </SliderTrack>
                   </SliderControl>
                 </Slider>
               </Field>
-              <PopoverClose data-variant="solid">Show {shown.length} products</PopoverClose>
+              <PopoverClose data-variant="solid">
+                Show {shown.length} products
+              </PopoverClose>
             </PopoverContent>
           </Popover>
 
           <div className="sort-select">
-            <Select value={order} onValueChange={setOrder}>
+            <Select
+              value={order}
+              onValueChange={setOrder}
+            >
               <SelectLabel>Sort by</SelectLabel>
               <SelectTrigger>
                 <SelectValue />
@@ -560,13 +694,22 @@ function ShopListingContent() {
         </div>
 
         {activeCount > 0 && (
-          <ul className="chips-row" aria-label="Active filters">
+          <ul
+            className="chips-row"
+            aria-label="Active filters"
+          >
             {priceActive && (
               <li>
-                <Button className="chip" onClick={() => setPrice([0, PRICE_MAX])}>
+                <Button
+                  className="chip"
+                  onClick={() => setPrice([0, PRICE_MAX])}
+                >
                   Price €{price[0]}–€{price[1]}{" "}
                   <span className="visually-hidden">(remove filter)</span>
-                  <Icon name="close" size={14} />
+                  <Icon
+                    name="close"
+                    size={14}
+                  />
                 </Button>
               </li>
             )}
@@ -577,40 +720,66 @@ function ShopListingContent() {
                   onClick={() =>
                     setFilters((current) => ({
                       ...current,
-                      [group.key]: current[group.key].filter((value) => value !== option.value),
+                      [group.key]: current[group.key].filter(
+                        (value) => value !== option.value,
+                      ),
                     }))
                   }
                 >
-                  {label} <span className="visually-hidden">(remove filter)</span>
-                  <Icon name="close" size={14} />
+                  {label}{" "}
+                  <span className="visually-hidden">(remove filter)</span>
+                  <Icon
+                    name="close"
+                    size={14}
+                  />
                 </Button>
               </li>
             ))}
             <li>
-              <Button className="chip reset" onClick={reset}>
+              <Button
+                className="chip reset"
+                onClick={reset}
+              >
                 Reset all filters
               </Button>
             </li>
           </ul>
         )}
 
-        <p className="result-count" role="status">
+        <p
+          className="result-count"
+          role="status"
+        >
           {shown.length} {shown.length === 1 ? "product" : "products"}
         </p>
         <ul className="product-grid">
           {shown.map((camera) => (
             <li key={camera.slug}>
-              <article className="product-card" aria-labelledby={`product-${camera.slug}`}>
-                <img src={camera.image} alt="" loading="lazy" />
+              <article
+                className="product-card"
+                aria-labelledby={`product-${camera.slug}`}
+              >
+                <img
+                  src={camera.image}
+                  alt=""
+                  loading="lazy"
+                />
                 <h2 id={`product-${camera.slug}`}>
                   <Link href={`${CAMERAS}/${camera.slug}`}>{camera.name}</Link>
                 </h2>
                 <p className="meta">{camera.subtitle}</p>
                 <p className="price">{formatPrice(camera.price)}</p>
                 <p className="meta">incl. 19% VAT</p>
-                <Button data-variant="solid" onClick={() => add(camera.slug, 1)}>
-                  <Icon name="cart" size={18} />
-                  Add to shopping cart<span className="visually-hidden">: {camera.name}</span>
+                <Button
+                  data-variant="solid"
+                  onClick={() => add(camera.slug, 1)}
+                >
+                  <Icon
+                    name="cart"
+                    size={18}
+                  />
+                  Add to shopping cart
+                  <span className="visually-hidden">: {camera.name}</span>
                 </Button>
               </article>
             </li>
@@ -619,7 +788,10 @@ function ShopListingContent() {
         {shown.length === 0 && (
           <p className="empty">
             No products match these filters.{" "}
-            <Button className="link-button" onClick={reset}>
+            <Button
+              className="link-button"
+              onClick={reset}
+            >
               Reset all filters
             </Button>
           </p>
@@ -662,7 +834,11 @@ function ProductContent({ slug }: { slug: string }) {
       />
       <div className="container">
         <div className="pdp">
-          <Carousel aria-label={`${camera.name} images`} className="gallery" loop>
+          <Carousel
+            aria-label={`${camera.name} images`}
+            className="gallery"
+            loop
+          >
             <CarouselViewport>
               <CarouselContent>
                 {gallery.map((src, index) => (
@@ -707,7 +883,12 @@ function ProductContent({ slug }: { slug: string }) {
             >
               <Field>
                 <FieldLabel className="visually-hidden">Quantity</FieldLabel>
-                <NumberInput value={quantity} onValueChange={setQuantityValue} min={1} max={100}>
+                <NumberInput
+                  value={quantity}
+                  onValueChange={setQuantityValue}
+                  min={1}
+                  max={100}
+                >
                   <NumberInputGroup className="stepper">
                     <NumberInputDecrement aria-label="Decrease quantity" />
                     <NumberInputControl />
@@ -715,24 +896,39 @@ function ProductContent({ slug }: { slug: string }) {
                   </NumberInputGroup>
                 </NumberInput>
               </Field>
-              <Button type="submit" data-variant="solid">
-                <Icon name="cart" size={18} />
+              <Button
+                type="submit"
+                data-variant="solid"
+              >
+                <Icon
+                  name="cart"
+                  size={18}
+                />
                 Add to shopping cart
               </Button>
             </form>
             <p className="availability">
-              <span aria-hidden="true" className="dot" /> Available, delivery time: 1-3 days
+              <span
+                aria-hidden="true"
+                className="dot"
+              />{" "}
+              Available, delivery time: 1-3 days
             </p>
-            <Button data-variant="outline" render={<a href="#dealer" />}>
+            <Button
+              data-variant="outline"
+              render={<a href="#dealer" />}
+            >
               Find a dealer
             </Button>
             <p>
               The {camera.name} combines high-quality ZEISS image quality with{" "}
-              {wide ? "an exceptionally wide 100°" : "a focused 60°"} field of view. It is ideal for
-              observing wildlife, birdwatching and monitoring indoor areas and properties.
+              {wide ? "an exceptionally wide 100°" : "a focused 60°"} field of
+              view. It is ideal for observing wildlife, birdwatching and
+              monitoring indoor areas and properties.
               {camera.frontDisplay &&
                 " The swivelling 1.9-inch colour display and the handy TEST button make set-up easy,"}{" "}
-              and the built-in LTE technology streams your footage directly to your smartphone.
+              and the built-in LTE technology streams your footage directly to
+              your smartphone.
             </p>
           </div>
         </div>
@@ -764,7 +960,10 @@ function ProductContent({ slug }: { slug: string }) {
               <AccordionTrigger>Scope of delivery</AccordionTrigger>
             </AccordionHeader>
             <AccordionPanel>
-              <p>{camera.name}, 4G antenna, mounting strap, USB-C cable, quick start guide.</p>
+              <p>
+                {camera.name}, 4G antenna, mounting strap, USB-C cable, quick
+                start guide.
+              </p>
             </AccordionPanel>
           </AccordionItem>
           <AccordionItem value="manufacturer">
@@ -773,24 +972,38 @@ function ProductContent({ slug }: { slug: string }) {
             </AccordionHeader>
             <AccordionPanel>
               <p>
-                VALYRA Germany GmbH, exclusive licensee of the ZEISS brand for hunting and nature
-                products.
+                VALYRA Germany GmbH, exclusive licensee of the ZEISS brand for
+                hunting and nature products.
               </p>
             </AccordionPanel>
           </AccordionItem>
         </Accordion>
 
-        <section className="band accessories" aria-labelledby="accessories-title">
-          <h2 id="accessories-title" className="section-title">
+        <section
+          className="band accessories"
+          aria-labelledby="accessories-title"
+        >
+          <h2
+            id="accessories-title"
+            className="section-title"
+          >
             {camera.name} Accessories
           </h2>
-          <Carousel aria-label="Accessories" slidesPerPage={4} className="accessory-carousel">
+          <Carousel
+            aria-label="Accessories"
+            slidesPerPage={4}
+            className="accessory-carousel"
+          >
             <CarouselViewport>
               <CarouselContent>
                 {accessories.map((item) => (
                   <CarouselItem key={item.name}>
                     <article className="product-card small">
-                      <img src={item.image} alt="" loading="lazy" />
+                      <img
+                        src={item.image}
+                        alt=""
+                        loading="lazy"
+                      />
                       <h3>{item.name}</h3>
                       <p className="price">{formatPrice(item.price)}</p>
                     </article>
@@ -819,7 +1032,8 @@ function CartContent() {
           <h1>Shopping cart</h1>
           {count === 0 ? (
             <p className="empty">
-              Your shopping cart is empty. <Link href={CAMERAS}>Continue shopping</Link>
+              Your shopping cart is empty.{" "}
+              <Link href={CAMERAS}>Continue shopping</Link>
             </p>
           ) : (
             <table className="cart-table">
@@ -839,16 +1053,26 @@ function CartContent() {
                   <tr key={camera.slug}>
                     <td>
                       <div className="cart-product">
-                        <img src={camera.image} alt="" />
+                        <img
+                          src={camera.image}
+                          alt=""
+                        />
                         <div>
-                          <Link href={`${CAMERAS}/${camera.slug}`}>{camera.name}</Link>
-                          <p className="meta">Product number: {camera.number}</p>
+                          <Link href={`${CAMERAS}/${camera.slug}`}>
+                            {camera.name}
+                          </Link>
+                          <p className="meta">
+                            Product number: {camera.number}
+                          </p>
                           <p className="meta">Delivery time: 1-3 days</p>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <QuantityStepper camera={camera} quantity={quantity} />
+                      <QuantityStepper
+                        camera={camera}
+                        quantity={quantity}
+                      />
                     </td>
                     <td>{formatPrice(camera.price)}</td>
                     <td>
@@ -860,7 +1084,10 @@ function CartContent() {
                         aria-label={`Remove ${camera.name} from shopping cart`}
                         onClick={() => removeFromCart(camera.slug)}
                       >
-                        <Icon name="close" size={16} />
+                        <Icon
+                          name="close"
+                          size={16}
+                        />
                       </Button>
                     </td>
                   </tr>
@@ -870,7 +1097,10 @@ function CartContent() {
           )}
         </div>
         {count > 0 && (
-          <aside className="cart-summary" aria-labelledby="summary-title">
+          <aside
+            className="cart-summary"
+            aria-labelledby="summary-title"
+          >
             <h2 id="summary-title">Order summary</h2>
             <dl className="summary">
               <dt>Total</dt>
@@ -886,9 +1116,12 @@ function CartContent() {
             </dl>
             <PromoCode />
             <CheckoutButton />
-            <p className="visually-hidden" role="status">
-              Shopping cart contains {count} {count === 1 ? "item" : "items"}. The cart total value
-              is €{(total + SHIPPING).toFixed(2)}.
+            <p
+              className="visually-hidden"
+              role="status"
+            >
+              Shopping cart contains {count} {count === 1 ? "item" : "items"}.
+              The cart total value is €{(total + SHIPPING).toFixed(2)}.
             </p>
           </aside>
         )}
@@ -902,7 +1135,10 @@ function NotFoundContent() {
     <>
       <div className="container band">
         <h1>Page not found</h1>
-        <Button data-variant="solid" onClick={() => navigate(CAMERAS)}>
+        <Button
+          data-variant="solid"
+          onClick={() => navigate(CAMERAS)}
+        >
           Back to the cameras
         </Button>
       </div>

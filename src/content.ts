@@ -27,7 +27,8 @@ const divisionGroups: DivisionGroup[] = [
     divisions: [
       {
         name: "Vision Care",
-        teaser: "Lenses, instruments and services that help people see clearly every day.",
+        teaser:
+          "Lenses, instruments and services that help people see clearly every day.",
         cards: [
           "Eye care professionals",
           "Consumer – nobody sees like you",
@@ -36,7 +37,8 @@ const divisionGroups: DivisionGroup[] = [
       },
       {
         name: "Extended Reality",
-        teaser: "Vision correction built into XR devices, so headsets fit every pair of eyes.",
+        teaser:
+          "Vision correction built into XR devices, so headsets fit every pair of eyes.",
         cards: [],
       },
     ],
@@ -61,7 +63,8 @@ const divisionGroups: DivisionGroup[] = [
     divisions: [
       {
         name: "Semiconductor Manufacturing Technology",
-        teaser: "Optics and systems that make the most advanced microchips possible.",
+        teaser:
+          "Optics and systems that make the most advanced microchips possible.",
         cards: ["Inspiring technology", "About SMT", "Career at ZEISS SMT"],
       },
     ],
@@ -73,8 +76,13 @@ const divisionGroups: DivisionGroup[] = [
     divisions: [
       {
         name: "Research & Quality Solutions",
-        teaser: "Measuring, inspection and microscopy systems for industry and research.",
-        cards: ["Systems & software", "Industrial Metrology Shop", "ZEISS Portal"],
+        teaser:
+          "Measuring, inspection and microscopy systems for industry and research.",
+        cards: [
+          "Systems & software",
+          "Industrial Metrology Shop",
+          "ZEISS Portal",
+        ],
       },
     ],
   },
@@ -87,7 +95,11 @@ const divisionGroups: DivisionGroup[] = [
         name: "Life Sciences Solutions",
         teaser:
           "From sample to insight: microscopes, software and workflows for the life sciences.",
-        cards: ["Microscopy Solutions", "Software & Digital Solutions", "Applications & Workflows"],
+        cards: [
+          "Microscopy Solutions",
+          "Software & Digital Solutions",
+          "Applications & Workflows",
+        ],
       },
     ],
   },
@@ -98,13 +110,22 @@ const divisionGroups: DivisionGroup[] = [
     divisions: [
       {
         name: "Photography",
-        teaser: "Lenses that bring out every detail, from landscapes to portraits.",
-        cards: ["Products for photography", "Service & contact", "Dealer search"],
+        teaser:
+          "Lenses that bring out every detail, from landscapes to portraits.",
+        cards: [
+          "Products for photography",
+          "Service & contact",
+          "Dealer search",
+        ],
       },
       {
         name: "Cinematography",
         teaser: "Cine lenses trusted on film sets around the world.",
-        cards: ["Products for cinematography", "Service & contact", "Dealer and rental search"],
+        cards: [
+          "Products for cinematography",
+          "Service & contact",
+          "Dealer and rental search",
+        ],
       },
     ],
   },
@@ -115,13 +136,18 @@ const divisionGroups: DivisionGroup[] = [
     divisions: [
       {
         name: "Hunting",
-        teaser: "Riflescopes, binoculars and rangefinders for every hunting situation.",
+        teaser:
+          "Riflescopes, binoculars and rangefinders for every hunting situation.",
         cards: ["Products for hunting", "Service & contact", "Dealer search"],
       },
       {
         name: "Nature Observation",
         teaser: "Binoculars and spotting scopes for birding and nature.",
-        cards: ["Products for nature observation", "Service & contact", "Dealer search"],
+        cards: [
+          "Products for nature observation",
+          "Service & contact",
+          "Dealer search",
+        ],
       },
     ],
   },
@@ -137,7 +163,8 @@ const divisionGroups: DivisionGroup[] = [
       },
       {
         name: "Planetariums",
-        teaser: "Star projectors and fulldome systems for planetariums worldwide.",
+        teaser:
+          "Star projectors and fulldome systems for planetariums worldwide.",
         cards: ["Planetarium Technology", "News", "Contact"],
       },
     ],
@@ -149,7 +176,8 @@ const divisionGroups: DivisionGroup[] = [
     divisions: [
       {
         name: "Spectroscopy",
-        teaser: "Spectrometer systems, modules and optical gratings for industry and research.",
+        teaser:
+          "Spectrometer systems, modules and optical gratings for industry and research.",
         cards: [
           "Spectrometer systems, modules and optical gratings",
           "Applications & industries",
@@ -158,7 +186,8 @@ const divisionGroups: DivisionGroup[] = [
       },
       {
         name: "OEM Solutions",
-        teaser: "High-tech optical components built into our partners' products.",
+        teaser:
+          "High-tech optical components built into our partners' products.",
         cards: ["Hightech components", "Microoptics", "Services OEM Solutions"],
       },
     ],
@@ -170,7 +199,8 @@ const divisionGroups: DivisionGroup[] = [
     divisions: [
       {
         name: "Digital Solutions",
-        teaser: "Software and data platforms that connect ZEISS technology end to end.",
+        teaser:
+          "Software and data platforms that connect ZEISS technology end to end.",
         cards: ["Industries", "Expertise", "Your advantage"],
       },
     ],
@@ -203,7 +233,11 @@ const heroSlides = [
 
 const promos = [
   { id: "beyond", kicker: "Initiative", title: "Beyond Innovation" },
-  { id: "innovation", kicker: "Innovation at ZEISS", title: "Shaping the future with technology" },
+  {
+    id: "innovation",
+    kicker: "Innovation at ZEISS",
+    title: "Shaping the future with technology",
+  },
   { id: "about", kicker: "About ZEISS", title: "What drives us" },
 ];
 
@@ -219,30 +253,49 @@ const stories: { id: string; topic: Topic; title: string }[] = [
   {
     id: "photonics",
     topic: "innovation",
-    title: "Shaping the future with light: What photonics makes possible at ZEISS",
+    title:
+      "Shaping the future with light: What photonics makes possible at ZEISS",
   },
-  { id: "ai-trust", topic: "digitalization", title: "Data, trust, and human-centered AI" },
-  { id: "healthcare", topic: "innovation", title: "Enabling healthcare innovation" },
-  { id: "nature", topic: "sustainability", title: "Nature protection begins with knowledge" },
+  {
+    id: "ai-trust",
+    topic: "digitalization",
+    title: "Data, trust, and human-centered AI",
+  },
+  {
+    id: "healthcare",
+    topic: "innovation",
+    title: "Enabling healthcare innovation",
+  },
+  {
+    id: "nature",
+    topic: "sustainability",
+    title: "Nature protection begins with knowledge",
+  },
   {
     id: "wind",
     topic: "sustainability",
     title:
       "Wind power with precision: how ZEISS technologies are driving the growth of renewable energies",
   },
-  { id: "digital-twin", topic: "digitalization", title: "Digital twins in the measuring room" },
+  {
+    id: "digital-twin",
+    topic: "digitalization",
+    title: "Digital twins in the measuring room",
+  },
 ];
 
 const news = [
   {
     id: "duramax",
     date: "19 November 2026",
-    title: "ZEISS DuraMax 8/5/5 expands the possibilities for shop floor quality assurance",
+    title:
+      "ZEISS DuraMax 8/5/5 expands the possibilities for shop floor quality assurance",
   },
   {
     id: "illumion",
     date: "28 October 2026",
-    title: "ZEISS invests in Illumion to support next-generation battery imaging technology",
+    title:
+      "ZEISS invests in Illumion to support next-generation battery imaging technology",
   },
   {
     id: "results",
@@ -280,7 +333,8 @@ const events = [
     name: "Carrefour Pathologie 2026",
     date: "18 – 20 November 2026",
     place: "La Défense",
-    about: "Congress for pathology. See digital slide scanning and AI-assisted analysis.",
+    about:
+      "Congress for pathology. See digital slide scanning and AI-assisted analysis.",
   },
   {
     id: "aao",
@@ -294,7 +348,9 @@ const events = [
 
 const areas = [
   "ZEISS Group",
-  ...divisionGroups.flatMap((group) => group.divisions.map((division) => division.name)),
+  ...divisionGroups.flatMap((group) =>
+    group.divisions.map((division) => division.name),
+  ),
 ];
 
 const websites = [
@@ -305,5 +361,15 @@ const websites = [
   "United States (English)",
 ];
 
-export { areas, divisionGroups, events, heroSlides, news, promos, stories, topics, websites };
+export {
+  areas,
+  divisionGroups,
+  events,
+  heroSlides,
+  news,
+  promos,
+  stories,
+  topics,
+  websites,
+};
 export type { IconName, Topic };

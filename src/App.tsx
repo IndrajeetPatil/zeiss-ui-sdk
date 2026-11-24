@@ -1,4 +1,10 @@
-import { Toast, ToastClose, ToastDescription, ToastRegion, ToastTitle } from "@ui-sdk/react/toast";
+import {
+  Toast,
+  ToastClose,
+  ToastDescription,
+  ToastRegion,
+  ToastTitle,
+} from "@ui-sdk/react/toast";
 import { Home } from "./pages/home.tsx";
 import { NatureHome, NatureProducts, TrailCameras } from "./pages/nature.tsx";
 import { CartPage, ProductPage, ShopListing } from "./pages/shop.tsx";
@@ -10,9 +16,11 @@ function Page() {
 
   if (path === "/nature-observation") return <NatureHome />;
   if (path === "/nature-observation/products") return <NatureProducts />;
-  if (path === "/nature-observation/products/trail-cameras") return <TrailCameras />;
+  if (path === "/nature-observation/products/trail-cameras")
+    return <TrailCameras />;
   if (path === "/shop/cameras") return <ShopListing />;
-  if (path.startsWith("/shop/cameras/")) return <ProductPage slug={path.split("/").pop()!} />;
+  if (path.startsWith("/shop/cameras/"))
+    return <ProductPage slug={path.split("/").pop()!} />;
   if (path === "/checkout/cart") return <CartPage />;
   return <Home />;
 }
@@ -22,7 +30,10 @@ function App() {
   return (
     <>
       <Page key={pathname} />
-      <ToastRegion aria-label="Notifications" data-agent-hidden>
+      <ToastRegion
+        aria-label="Notifications"
+        data-agent-hidden
+      >
         {() => (
           <Toast>
             <ToastTitle />

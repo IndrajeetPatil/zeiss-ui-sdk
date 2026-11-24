@@ -23,14 +23,14 @@ Ask the evaluator to break the journey into steps (homepage → … → cart) an
 
 Expected end state, for checking the evaluator's result:
 
-| Field | Value |
-| --- | --- |
-| Product | ZEISS Secacam 3 Wide-Angle |
-| Product number | SC-000-130-100 |
-| Quantity | 2 |
-| Unit price | €149.99 (incl. 19% VAT) |
-| Shipping | €0.00 |
-| Grand total | €299.98 (net €252.08 + VAT €47.90) |
+| Field          | Value                              |
+| -------------- | ---------------------------------- |
+| Product        | ZEISS Secacam 3 Wide-Angle         |
+| Product number | SC-000-130-100                     |
+| Quantity       | 2                                  |
+| Unit price     | €149.99 (incl. 19% VAT)            |
+| Shipping       | €0.00                              |
+| Grand total    | €299.98 (net €252.08 + VAT €47.90) |
 
 The only other 100° camera is the ZEISS Secacam 5 Wide-Angle at €199.99, so picking it fails the "cheapest" criterion.
 
