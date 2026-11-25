@@ -200,6 +200,9 @@ importers:
         specifier: ^19.3.1
         version: 19.3.1(react@19.3.1)
     devDependencies:
+      '@projectwallace/css-code-quality':
+        specifier: ^3.1.5
+        version: 3.1.5
       '@types/node':
         specifier: ^24.19.2
         version: 24.19.2
@@ -506,6 +509,18 @@ packages:
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
+
+  '@projectwallace/css-analyzer@9.9.9':
+    resolution: {integrity: sha512-pUgHk23C4FrZjyRmkzHzNq7mgZ7l8jc8M44XsNqOH/1EwPzupqD5BKK8ED5Dj1jzP2IyYsAJwZqgyrONH1MUFw==}
+    engines: {node: '>=18.0.0', pnpm: '>=11.0.0'}
+
+  '@projectwallace/css-code-quality@3.1.5':
+    resolution: {integrity: sha512-ST6bMvtw28FNeXgwsALkGF4T2lwgrpg7zLEt6K95y5ytHlTeQdM5sZpEw5ugtpaS1aodMPau8oyVTXvVHRWzHw==}
+    engines: {node: '>=16.0.0', pnpm: '>=11.16.0'}
+
+  '@projectwallace/css-parser@0.20.0':
+    resolution: {integrity: sha512-DACi18aYryfiiEs/orFYB+1aE9uPkq8DmwwOkrKZydbwqPnP0hUl+0xESnIfbld2p2zF23ufJNfBZyV3HQD0/g==}
+    engines: {pnpm: '>=11.0.0'}
 
   '@rolldown/pluginutils@1.1.1':
     resolution: {integrity: sha512-glFIJDvLNDtJhT9qrMFWLPbvS+skxgt4L0K8Ei2YtnhPysAJnsI7nyxSJxKj4ADeKX0OLjC4ntRkwpLOoS3rwA==}
@@ -1476,6 +1491,16 @@ snapshots:
   '@oxlint/plugins@1.94.0': {}
 
   '@polka/url@1.0.0-next.29': {}
+
+  '@projectwallace/css-analyzer@9.9.9':
+    dependencies:
+      '@projectwallace/css-parser': 0.20.0
+
+  '@projectwallace/css-code-quality@3.1.5':
+    dependencies:
+      '@projectwallace/css-analyzer': 9.9.9
+
+  '@projectwallace/css-parser@0.20.0': {}
 
   '@rolldown/pluginutils@1.1.1': {}
 

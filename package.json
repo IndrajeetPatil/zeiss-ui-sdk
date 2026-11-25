@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vp dev",
     "build": "tsc -b && vp build",
-    "lint": "vp lint",
+    "lint": "vp lint && vp run css-quality",
+    "css-quality": "node scripts/css-quality.ts",
     "preview": "vp preview"
   },
   "dependencies": {
@@ -16,6 +17,7 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
+    "@projectwallace/css-code-quality": "^3.1.5",
     "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
